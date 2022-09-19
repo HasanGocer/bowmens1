@@ -5,11 +5,37 @@ using UnityEngine;
 public class GameStart : MonoSingleton<GameStart>
 {
     public bool gameStart;
+    public bool inFight = false;
+    public bool inFinish;
+    public bool inGameFinish;
+    public bool inFail;
+    public bool lastOne;
+    public bool inMarket;
 
-    public int vibration, sound;
+    public int MarketSelectWindow;
 
-    private void Start()
+    public int vibration, sound, level, money;
+
+    private void Awake()
     {
+        if (PlayerPrefs.HasKey("money"))
+        {
+            money = PlayerPrefs.GetInt("money");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("money", 0);
+        }
+
+        if (PlayerPrefs.HasKey("level"))
+        {
+            level = PlayerPrefs.GetInt("level");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("level", 0);
+        }
+
         if (PlayerPrefs.HasKey("vibration"))
         {
             vibration = PlayerPrefs.GetInt("vibration");
@@ -30,7 +56,7 @@ public class GameStart : MonoSingleton<GameStart>
 
         if (PlayerPrefs.HasKey("archerArrowSpeed"))
         {
-            RivalD.Instance.archerArrowSpeedFactor = PlayerPrefs.GetInt("archerArrowSpeed");
+            RivalD.Instance.factor.archerArrowSpeed = PlayerPrefs.GetInt("archerArrowSpeed");
         }
         else
         {
@@ -39,7 +65,7 @@ public class GameStart : MonoSingleton<GameStart>
 
         if (PlayerPrefs.HasKey("archerShot"))
         {
-            RivalD.Instance.archerShotFactor = PlayerPrefs.GetInt("archerShot");
+            RivalD.Instance.factor.archerShot = PlayerPrefs.GetInt("archerShot");
         }
         else
         {
@@ -48,23 +74,12 @@ public class GameStart : MonoSingleton<GameStart>
 
         if (PlayerPrefs.HasKey("characterSpeed"))
         {
-            RivalD.Instance.characterSpeedFactor = PlayerPrefs.GetInt("characterSpeed");
+            RivalD.Instance.factor.characterSpeed = PlayerPrefs.GetInt("characterSpeed");
         }
         else
         {
             PlayerPrefs.SetInt("characterSpeed", 1);
         }
-    }
-
-    private void Update()
-    {
-        //oyun baþlatýr oyun sonunda ekrana tam buton koy ona týklayýnca gameStart true
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            gameStart = true;
-            RivalWalk.Instance.inFight = false;
-        }
-
     }
 
     public void SetSound()
@@ -79,16 +94,28 @@ public class GameStart : MonoSingleton<GameStart>
 
     public void SetArcherArrowSpeedFactor()
     {
-        PlayerPrefs.SetInt("archerArrowSpeed", RivalD.Instance.archerArrowSpeedFactor);
+        PlayerPrefs.SetInt("archerArrowSpeed", RivalD.Instance.factor.archerArrowSpeed);
     }
 
     public void SetArcherShotFactor()
     {
-        PlayerPrefs.SetInt("archerShot", RivalD.Instance.archerShotFactor);
+        PlayerPrefs.SetInt("archerShot", RivalD.Instance.factor.archerShot);
     }
 
     public void SetCharacterSpeedFactor()
     {
-        PlayerPrefs.SetInt("characterSpeed", RivalD.Instance.characterSpeedFactor);
+        PlayerPrefs.SetInt("characterSpeed", RivalD.Instance.factor.characterSpeed);
+    }
+
+    public void MoneySet()
+    {
+        PlayerPrefs.SetInt("money", money);
+        Buttons.Instance.moneyText.text = GameStart.Instance.money.ToString();
+    }
+
+    public void LevelSet()
+    {
+        PlayerPrefs.SetInt("Level", level);
+        Buttons.Instance.levelText.text = GameStart.Instance.level.ToString();
     }
 }

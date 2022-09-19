@@ -6,97 +6,125 @@ using UnityEngine.SceneManagement;
 
 public class Buttons : MonoSingleton<Buttons>
 {
-    [SerializeField] private GameObject money;
+    [SerializeField] private GameObject _GlobalGame;
+    public Text moneyText;
+    public Text levelText;
 
     [SerializeField] private Button _startButton;
     [SerializeField] private GameObject _startGame;
-    public bool inGame;
+
+    [SerializeField] private Sprite _red, _green;
+    [SerializeField] private Button _settingBackButton;
+
+    [SerializeField] private Button _soundButton, _vibrationButton;
 
     [SerializeField] private Button _settingButton;
     [SerializeField] private GameObject _settingGame;
 
-    [SerializeField] private Sprite _red, _green;
-    [SerializeField] private Button _settingBackButton;
-    public bool sound, vibration;
-    [SerializeField] private Button _soundButton, _vibrationButton;
+    [SerializeField] private Button _archerArrowSpeedButton, _archerShotButton, _characterSpeedButton;
+    [SerializeField] private Text _archerArrowSpeedText, _archerShotText, _characterSpeedtext;
+    [SerializeField] private List<Button> _marketSelectedButton = new List<Button>();
+    [SerializeField] private List<GameObject> _marketSelectedGame = new List<GameObject>();
+    [SerializeField] private GameObject _marketGame;
 
-    [SerializeField] private Button _archerArrowSpeedFactorPlus, _archerShotFactorPlus, _characterSpeedFactorPlus;
+    [SerializeField] private Button _finishButton;
+    public GameObject finishGame;
 
-    [SerializeField] private Button _continueButton;
-    public GameObject continueGame;
-    public bool inFinish;
-
+    [SerializeField] private Button _failResumeButton, _failRetryButton;
+    public GameObject failGame;
 
     private void Start()
     {
+        moneyText.text = GameStart.Instance.money.ToString();
+        levelText.text = GameStart.Instance.level.ToString();
+
         _startButton.onClick.AddListener(StartButton);
-        _settingButton.onClick.AddListener(SettingButton);
-        _settingBackButton.onClick.AddListener(SettingBackButton);
         _soundButton.onClick.AddListener(SoundButton);
         _vibrationButton.onClick.AddListener(VibrationButton);
-        _continueButton.onClick.AddListener(ContinueButton);
-        _archerArrowSpeedFactorPlus.onClick.AddListener(ArcherArrowSpeedFactorPlus);
-        _archerShotFactorPlus.onClick.AddListener(ArcherShotFactorPlus);
-        _characterSpeedFactorPlus.onClick.AddListener(CharacterSpeedFactorPlus);
+        _archerArrowSpeedButton.onClick.AddListener(ArcherArrowSpeedFactorPlus);
+        _archerShotButton.onClick.AddListener(ArcherShotFactorPlus);
+        _characterSpeedButton.onClick.AddListener(CharacterSpeedFactorPlus);
+        _settingButton.onClick.AddListener(SettingButton);
+        _settingBackButton.onClick.AddListener(SettingBackButton);
+        _finishButton.onClick.AddListener(FinishButton);
+        _failResumeButton.onClick.AddListener(FailResumeButton);
+        _failRetryButton.onClick.AddListener(FailRetryButton);
+
+
+
 
         if (GameStart.Instance.sound == 1)
         {
-            sound = true;
             _soundButton.gameObject.GetComponent<Image>().sprite = _green;
             SoundSystem.Instance.MainMusicPlay();
         }
         else
         {
-            sound = false;
             _soundButton.gameObject.GetComponent<Image>().sprite = _red;
         }
 
         if (GameStart.Instance.vibration == 1)
         {
-            vibration = true;
             _vibrationButton.gameObject.GetComponent<Image>().sprite = _green;
         }
         else
         {
-            vibration = false;
             _vibrationButton.gameObject.GetComponent<Image>().sprite = _red;
         }
+
+
     }
 
     private void ArcherArrowSpeedFactorPlus()
     {
-        RivalD.Instance.archerArrowSpeedFactor++;
+        RivalD.Instance.factor.archerArrowSpeed++;
         GameStart.Instance.SetArcherArrowSpeedFactor();
+        _archerArrowSpeedText.text = RivalD.Instance.field.archerArrowSpeed.ToString();
+        //if()
     }
 
     private void ArcherShotFactorPlus()
     {
-        RivalD.Instance.archerShotFactor++;
+        RivalD.Instance.factor.archerShot++;
         GameStart.Instance.SetArcherShotFactor();
+        _archerShotText.text = RivalD.Instance.field.archerShot.ToString();
     }
 
     private void CharacterSpeedFactorPlus()
     {
-        RivalD.Instance.characterSpeedFactor++;
+        RivalD.Instance.factor.characterSpeed++;
         GameStart.Instance.SetCharacterSpeedFactor();
+        _characterSpeedtext.text = RivalD.Instance.field.characterSpeed.ToString();
+    }
+
+    public void MarketSelected()
+    {
+        for (int i = 0; i < _marketSelectedButton.Count; i++)
+        {
+            if (i == GameStart.Instance.MarketSelectWindow)
+            {
+                _marketSelectedGame[i].SetActive(true);
+                continue;
+            }
+            _marketSelectedGame[i].SetActive(false);
+        }
     }
 
     private void StartButton()
     {
-
+        GameStart.Instance.gameStart = true;
+        GameStart.Instance.inFight = false;
     }
 
     private void SettingButton()
     {
         _settingGame.SetActive(true);
-        _settingButton.gameObject.SetActive(false);
-        money.SetActive(false);
-        _startButton.gameObject.SetActive(false);
-        if (inFinish == true)
+        _GlobalGame.SetActive(false);
+        if (GameStart.Instance.inFinish == true)
         {
-            continueGame.SetActive(false);
+            finishGame.SetActive(false);
         }
-        if (inGame == true)
+        if (GameStart.Instance.gameStart == true)
         {
             _startGame.SetActive(false);
         }
@@ -106,14 +134,12 @@ public class Buttons : MonoSingleton<Buttons>
     private void SettingBackButton()
     {
         _settingGame.SetActive(false);
-        _settingButton.gameObject.SetActive(true);
-        money.SetActive(true);
-        _startButton.gameObject.SetActive(true);
-        if (inFinish == true)
+        _GlobalGame.SetActive(true);
+        if (GameStart.Instance.inFinish == true)
         {
-            continueGame.SetActive(true);
+            finishGame.SetActive(true);
         }
-        if (inGame == true)
+        if (GameStart.Instance.gameStart == true)
         {
             _startGame.SetActive(false);
         }
@@ -121,43 +147,49 @@ public class Buttons : MonoSingleton<Buttons>
 
     private void SoundButton()
     {
-        if (sound == true)
+        if (GameStart.Instance.sound == 1)
         {
-            sound = false;
+            GameStart.Instance.sound = 0;
             _soundButton.gameObject.GetComponent<Image>().sprite = _red;
             SoundSystem.Instance.MainMusicStop();
-            GameStart.Instance.sound = 0;
             GameStart.Instance.SetSound();
         }
         else
         {
-            sound = true;
+            GameStart.Instance.sound = 1;
             _soundButton.gameObject.GetComponent<Image>().sprite = _green;
             SoundSystem.Instance.MainMusicPlay();
-            GameStart.Instance.sound = 1;
             GameStart.Instance.SetSound();
         }
     }
 
     private void VibrationButton()
     {
-        if (vibration == true)
+        if (GameStart.Instance.vibration == 1)
         {
-            vibration = false;
-            _vibrationButton.gameObject.GetComponent<Image>().sprite = _red;
             GameStart.Instance.vibration = 0;
+            _vibrationButton.gameObject.GetComponent<Image>().sprite = _red;
             GameStart.Instance.SetVibration();
         }
         else
         {
-            vibration = true;
-            _vibrationButton.gameObject.GetComponent<Image>().sprite = _green;
             GameStart.Instance.vibration = 1;
+            _vibrationButton.gameObject.GetComponent<Image>().sprite = _green;
             GameStart.Instance.SetVibration();
         }
     }
 
-    private void ContinueButton()
+    private void FinishButton()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void FailResumeButton()
+    {
+        //reklam
+    }
+
+    private void FailRetryButton()
     {
         SceneManager.LoadScene(0);
     }

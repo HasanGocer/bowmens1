@@ -13,7 +13,6 @@ public class RivalWalk : MonoSingleton<RivalWalk>
     [SerializeField] private int _rivalPart = 1;
     [SerializeField] private int HardCodeAhmetAbe = 5;
     public GameObject rivalFreeParent;
-    public bool inFight = false;
 
     [SerializeField] private GameObject[] PathGO;
     public Vector3[] PathV3;
@@ -33,11 +32,15 @@ public class RivalWalk : MonoSingleton<RivalWalk>
     {
         while (true)
         {
-            if (GameStart.Instance.gameStart && !inFight)
+            if (GameStart.Instance.gameStart && !GameStart.Instance.inFight && !GameStart.Instance.inGameFinish)
             {
                 TeleportRival();
                 _rivalPart++;
                 yield return new WaitForSeconds(_spawnTime);
+            }
+            if (GameStart.Instance.inGameFinish)
+            {
+                Buttons.Instance.finishGame.SetActive(true);
             }
             yield return null;
         }
@@ -45,7 +48,7 @@ public class RivalWalk : MonoSingleton<RivalWalk>
 
     private void TeleportRival()
     {
-        inFight = true;
+        GameStart.Instance.inFight = true;
         GameObject rivalParent = ObjectPool.Instance.GetPooledObject(_ParentOPCount);
         rivalParent.transform.position = rivalFreeParent.transform.position;
         for (int i1 = 1; i1 <= _rivalPart; i1++)
@@ -70,15 +73,13 @@ public class RivalWalk : MonoSingleton<RivalWalk>
                     obj.transform.position = PathGO[0].transform.position;
                     obj.transform.SetParent(rivalParent.transform);
 
-                    if (_rivalPart < RivalD.Instance.archerArrowSpeedFactor + RivalD.Instance.archerShotFactor + RivalD.Instance.characterSpeedFactor)
+                    if (_rivalPart < RivalD.Instance.factor.archerArrowSpeed + RivalD.Instance.factor.archerShot + RivalD.Instance.factor.characterSpeed)
                     {
-                        _rivalPart = RivalD.Instance.archerArrowSpeedFactor + RivalD.Instance.archerShotFactor + RivalD.Instance.characterSpeedFactor;
+                        _rivalPart = RivalD.Instance.factor.archerArrowSpeed + RivalD.Instance.factor.archerShot + RivalD.Instance.factor.characterSpeed;
                     }
                     StartCoroutine(FinishWalk(obj));
                 }
-
             }
-
         }
         rivalParent.transform.DOPath(PathV3, _rivalWalkTime).SetEase(Ease.InSine);
 

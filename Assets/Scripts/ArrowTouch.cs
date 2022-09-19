@@ -16,6 +16,11 @@ public class ArrowTouch : MonoBehaviour
             Partical(other);
 
             other.GetComponent<ArrowFollow>().followBool = true;
+
+            if (GameStart.Instance.lastOne)
+            {
+                GameStart.Instance.inMarket = true;
+            }
         }
     }
 

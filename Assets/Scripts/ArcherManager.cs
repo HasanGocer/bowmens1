@@ -65,19 +65,26 @@ public class ArcherManager : MonoSingleton<ArcherManager>
                         Towers[i].Archer[ArcherType[i]].GetComponent<ArcherRotate>().rival = _focusRival;
                     }
                     yield return new WaitForSeconds(_rotationCountdown);
-                }
 
-                //kulelerin hepsinni ateþ etmesi saðlanýyor
-                for (int i = 0; i < _towerCount; i++)
+                    if (Rival.Count == 0)
+                    {
+                        GameStart.Instance.lastOne = true;
+                    }
+                }
+                if (!GameStart.Instance.inFail)
                 {
-                    //objecting pooldan arrow çekiyoruz. rotasyon ve position atamasý yapýlýr ve Arrow takip edilir
-                    GameObject objArrow = ObjectPlacement(_OPArrowCount, i);
+                    //kulelerin hepsinni ateþ etmesi saðlanýyor
+                    for (int i = 0; i < _towerCount; i++)
+                    {
+                        //objecting pooldan arrow çekiyoruz. rotasyon ve position atamasý yapýlýr ve Arrow takip edilir
+                        GameObject objArrow = ObjectPlacement(_OPArrowCount, i);
 
-                    //StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV1( _focusRival));
-                    StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV2(_focusRival));
-                    yield return new WaitForSeconds(_rotationCountdown);
+                        //StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV1( _focusRival));
+                        StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV2(_focusRival));
+                        yield return new WaitForSeconds(_rotationCountdown);
+                    }
+                    yield return new WaitForSeconds(1 / RivalD.Instance.field.archerShot);
                 }
-                yield return new WaitForSeconds(1 / RivalD.Instance.archerShot);
             }
             yield return null;
         }
