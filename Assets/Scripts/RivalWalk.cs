@@ -20,7 +20,6 @@ public class RivalWalk : MonoSingleton<RivalWalk>
 
     private void Start()
     {
-        _rivalWalkTime = RivalD.Instance.archerArrowSpeed;
         //vectör 3 elden girilmediði için sayýsý atanýp deðerler yerleþtiriliyor ve yürüme komutu baþlýyor
         PathV3 = new Vector3[PathGO.Length];
         for (int i = 0; i < PathGO.Length; i++)
@@ -53,12 +52,12 @@ public class RivalWalk : MonoSingleton<RivalWalk>
         {
             for (int i2 = 0; i2 < i1; i2++)
             {
-                if (i2 != 0)
+                if (i1 != 1)
                 {
                     //objeyi ObjectingPool dan çekip yerine yerleþtirip path te yürütülüyor
                     GameObject obj = ObjectPool.Instance.GetPooledObject(_rivalOPCount);
 
-                    obj.transform.position = new Vector3(PathGO[0].transform.position.x + (distanceHorizontal * (float)((_rivalPart - 1) / 2)) - (i2 * distanceHorizontal), PathGO[0].transform.position.y, PathGO[0].transform.position.z - (distanceVertical * _rivalPart));
+                    obj.transform.position = new Vector3(PathGO[0].transform.position.x + (distanceHorizontal * (float)((i1 - 1) / 2)) - (i2 * distanceHorizontal), PathGO[0].transform.position.y, PathGO[0].transform.position.z - (distanceVertical * i1));
                     obj.transform.SetParent(rivalParent.transform);
 
                     StartCoroutine(FinishWalk(obj));
@@ -71,6 +70,10 @@ public class RivalWalk : MonoSingleton<RivalWalk>
                     obj.transform.position = PathGO[0].transform.position;
                     obj.transform.SetParent(rivalParent.transform);
 
+                    if (_rivalPart < RivalD.Instance.archerArrowSpeedFactor + RivalD.Instance.archerShotFactor + RivalD.Instance.characterSpeedFactor)
+                    {
+                        _rivalPart = RivalD.Instance.archerArrowSpeedFactor + RivalD.Instance.archerShotFactor + RivalD.Instance.characterSpeedFactor;
+                    }
                     StartCoroutine(FinishWalk(obj));
                 }
 

@@ -7,7 +7,7 @@ public class ArrowFollow : MonoBehaviour
 {
     public bool followBool;
     [SerializeField] private float _arrowCountdown;
-    [SerializeField] private float _arrowTime;
+    private float _arrowTime;
     [SerializeField] private int _OPArrowCount;
     private float _arrowSpeed;
     Rigidbody rb;
@@ -43,6 +43,7 @@ public class ArrowFollow : MonoBehaviour
     }
     public IEnumerator ArrowRivalIntegratedV2(GameObject rival)
     {
+        _arrowTime = RivalD.Instance.archerArrowSpeed;
         this.transform.DOMove(rival.transform.position, _arrowTime);
         yield return new WaitForSeconds(_arrowTime);
         ObjectPool.Instance.AddObject(_OPArrowCount, this.gameObject);

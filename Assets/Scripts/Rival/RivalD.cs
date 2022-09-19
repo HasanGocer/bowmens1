@@ -7,7 +7,7 @@ public class RivalD : MonoSingleton<RivalD>
     public RivalData rivalData = null;
 
     public float archerArrowSpeed, archerShot, characterSpeed;
-    [SerializeField] public float archerArrowSpeedFactor, archerShotFactor, characterSpeedFactor;
+    [SerializeField] public int archerArrowSpeedFactor, archerShotFactor, characterSpeedFactor;
     [SerializeField] private float arcerArrowSpeedConstant, archerShotConstant, characterSpeedConstant;
     [SerializeField] private float arcerArrowSpeedMax = 0.1f;
 

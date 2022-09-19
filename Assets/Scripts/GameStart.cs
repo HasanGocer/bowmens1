@@ -27,6 +27,33 @@ public class GameStart : MonoSingleton<GameStart>
         {
             PlayerPrefs.SetInt("sound", 1);
         }
+
+        if (PlayerPrefs.HasKey("archerArrowSpeed"))
+        {
+            RivalD.Instance.archerArrowSpeedFactor = PlayerPrefs.GetInt("archerArrowSpeed");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("archerArrowSpeed", 1);
+        }
+
+        if (PlayerPrefs.HasKey("archerShot"))
+        {
+            RivalD.Instance.archerShotFactor = PlayerPrefs.GetInt("archerShot");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("archerShot", 1);
+        }
+
+        if (PlayerPrefs.HasKey("characterSpeed"))
+        {
+            RivalD.Instance.characterSpeedFactor = PlayerPrefs.GetInt("characterSpeed");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("characterSpeed", 1);
+        }
     }
 
     private void Update()
@@ -48,5 +75,20 @@ public class GameStart : MonoSingleton<GameStart>
     public void SetVibration()
     {
         PlayerPrefs.SetInt("vibration", vibration);
+    }
+
+    public void SetArcherArrowSpeedFactor()
+    {
+        PlayerPrefs.SetInt("archerArrowSpeed", RivalD.Instance.archerArrowSpeedFactor);
+    }
+
+    public void SetArcherShotFactor()
+    {
+        PlayerPrefs.SetInt("archerShot", RivalD.Instance.archerShotFactor);
+    }
+
+    public void SetCharacterSpeedFactor()
+    {
+        PlayerPrefs.SetInt("characterSpeed", RivalD.Instance.characterSpeedFactor);
     }
 }

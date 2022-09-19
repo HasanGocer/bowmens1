@@ -14,9 +14,7 @@ public class ArrowTouch : MonoBehaviour
             ObjectPool.Instance.AddObject(_OPRivalCount, this.gameObject);
             transform.SetParent(RivalWalk.Instance.rivalFreeParent.transform);
             Partical(other);
-            FightFinish.Instance.Finish();
 
-            //partical çýkar
             other.GetComponent<ArrowFollow>().followBool = true;
         }
     }

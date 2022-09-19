@@ -66,16 +66,19 @@ public class Buttons : MonoSingleton<Buttons>
     private void ArcherArrowSpeedFactorPlus()
     {
         RivalD.Instance.archerArrowSpeedFactor++;
+        GameStart.Instance.SetArcherArrowSpeedFactor();
     }
 
     private void ArcherShotFactorPlus()
     {
         RivalD.Instance.archerShotFactor++;
+        GameStart.Instance.SetArcherShotFactor();
     }
 
     private void CharacterSpeedFactorPlus()
     {
         RivalD.Instance.characterSpeedFactor++;
+        GameStart.Instance.SetCharacterSpeedFactor();
     }
 
     private void StartButton()

@@ -19,7 +19,6 @@ public class ArcherManager : MonoSingleton<ArcherManager>
     public Stack<GameObject> Rival = new Stack<GameObject>();
     [SerializeField] private int _towerCount;
     [SerializeField] private int _OPArrowCount, _OPRivalCount, _OPParticalCount;
-    [SerializeField] private float _arrowCountdown;
     [SerializeField] private GameObject _focusRival;
     private float _rotationCountdown = 0.1f;
 
