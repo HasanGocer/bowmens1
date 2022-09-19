@@ -35,10 +35,10 @@ public class RivalD : MonoSingleton<RivalD>
     }
     public MaxFactor maxFactor;
 
+    [System.Serializable]
     public class Max
     {
         public float archerArrowSpeed, archerShot, characterSpeed;
-
     }
     public Max max;
 

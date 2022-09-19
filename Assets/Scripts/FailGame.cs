@@ -6,7 +6,10 @@ public class FailGame : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GameStart.Instance.inFail = true;
-        Buttons.Instance.failGame.SetActive(true);
+        if (other.CompareTag("Rival"))
+        {
+            GameStart.Instance.inFail = true;
+            Buttons.Instance.failGame.SetActive(true);
+        }
     }
 }

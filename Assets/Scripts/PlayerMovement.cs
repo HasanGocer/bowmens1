@@ -11,13 +11,16 @@ public class PlayerMovement : MonoBehaviour
 
     Touch touch;
 
-    private Vector3 touchDown,touchUp;
+    private Vector3 touchDown, touchUp;
 
     private bool dragStarted, isMoving;
 
     void Update()
     {
-        Movement();
+        if (GameStart.Instance.gameStart)
+        {
+            Movement();
+        }
     }
 
     void Movement()

@@ -181,9 +181,13 @@ MonoBehaviour:
     archerShot: 0.2
     characterSpeed: 0.2
   maxFactor:
-    archerArrowSpeed: 1
-    archerShot: 5
-    characterSpeed: 7
+    archerArrowSpeed: 10
+    archerShot: 10
+    characterSpeed: 10
+  max:
+    archerArrowSpeed: 0.1
+    archerShot: 7
+    characterSpeed: 10
 --- !u!114 &22190762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +435,72 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 300
+--- !u!1 &186205784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 186205785}
+  - component: {fileID: 186205788}
+  - component: {fileID: 186205787}
+  - component: {fileID: 186205786}
+  m_Layer: 0
+  m_Name: Finish
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &186205785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186205784}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -14.4, y: 5, z: 44.8}
+  m_LocalScale: {x: 20, y: 10, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1201721232}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &186205786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186205784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd8af48549a7e04495d8407b66d3638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &186205787
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186205784}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &186205788
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186205784}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &219379357
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +514,7 @@ GameObject:
   - component: {fileID: 219379359}
   - component: {fileID: 219379358}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1824,7 +1894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &829792354
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2265,6 +2335,7 @@ Transform:
   - {fileID: 89009967}
   - {fileID: 262884785}
   - {fileID: 2087241476}
+  - {fileID: 186205785}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2399,6 +2470,7 @@ GameObject:
   - component: {fileID: 1250608662}
   - component: {fileID: 1250608664}
   - component: {fileID: 1250608663}
+  - component: {fileID: 1250608665}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2465,6 +2537,22 @@ MonoBehaviour:
     poolSize: 30
   - objectPrefab: {fileID: 160684, guid: de85f8f81ea29ea479250adb36debd92, type: 3}
     poolSize: 50
+--- !u!114 &1250608665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250608661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd11289267a73a4a9043e851c0ba1a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSource: {fileID: 0}
+  mainMusic: {fileID: 0}
+  bloomEffect: {fileID: 0}
+  goldEffect: {fileID: 0}
 --- !u!1 &1271116806
 GameObject:
   m_ObjectHideFlags: 0
@@ -8140,7 +8228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6600762087188487613
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9006,11 +9094,11 @@ RectTransform:
   m_Father: {fileID: 6600762087188487613}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1080, y: 1920}
-  m_Pivot: {x: 0.5, y: 0}
+  m_SizeDelta: {x: 1450, y: 3200}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6600762087729803723
 MonoBehaviour:
   m_ObjectHideFlags: 0

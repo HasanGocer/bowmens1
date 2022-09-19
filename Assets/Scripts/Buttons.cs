@@ -64,7 +64,7 @@ public class Buttons : MonoSingleton<Buttons>
         if (GameStart.Instance.sound == 1)
         {
             _soundButton.gameObject.GetComponent<Image>().sprite = _green;
-            SoundSystem.Instance.MainMusicPlay();
+            //SoundSystem.Instance.MainMusicPlay();
         }
         else
         {
@@ -122,6 +122,7 @@ public class Buttons : MonoSingleton<Buttons>
     {
         GameStart.Instance.gameStart = true;
         GameStart.Instance.inFight = false;
+        _startGame.SetActive(false);
     }
 
     private void SettingButton()
