@@ -7,6 +7,6 @@ public class FailGame : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GameStart.Instance.inFail = true;
-        Buttons.Instance.
+        Buttons.Instance.failGame.SetActive(true);
     }
 }

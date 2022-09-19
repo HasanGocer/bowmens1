@@ -21,19 +21,23 @@ public class GameStart : MonoSingleton<GameStart>
         if (PlayerPrefs.HasKey("money"))
         {
             money = PlayerPrefs.GetInt("money");
+            Buttons.Instance.moneyText.text = money.ToString();
         }
         else
         {
             PlayerPrefs.SetInt("money", 0);
+            Buttons.Instance.moneyText.text = money.ToString();
         }
 
         if (PlayerPrefs.HasKey("level"))
         {
             level = PlayerPrefs.GetInt("level");
+            Buttons.Instance.levelText.text = level.ToString();
         }
         else
         {
             PlayerPrefs.SetInt("level", 0);
+            Buttons.Instance.levelText.text = level.ToString();
         }
 
         if (PlayerPrefs.HasKey("vibration"))
