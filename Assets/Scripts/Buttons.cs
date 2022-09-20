@@ -118,7 +118,7 @@ public class Buttons : MonoSingleton<Buttons>
         }
     }
 
-    private void StartButton()
+    public void StartButton()
     {
         GameStart.Instance.gameStart = true;
         GameStart.Instance.inFight = false;
