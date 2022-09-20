@@ -84,6 +84,15 @@ public class GameStart : MonoSingleton<GameStart>
         {
             PlayerPrefs.SetInt("characterSpeed", 1);
         }
+
+        if (PlayerPrefs.HasKey("Tower"))
+        {
+            RivalD.Instance.field.Tower = PlayerPrefs.GetInt("Tower");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Tower", 1);
+        }
     }
 
     public void SetSound()
@@ -98,17 +107,22 @@ public class GameStart : MonoSingleton<GameStart>
 
     public void SetArcherArrowSpeedFactor()
     {
-        PlayerPrefs.SetInt("archerArrowSpeed", RivalD.Instance.factor.archerArrowSpeed);
+        PlayerPrefs.SetInt("archerArrowSpeed", (int)RivalD.Instance.factor.archerArrowSpeed);
     }
 
     public void SetArcherShotFactor()
     {
-        PlayerPrefs.SetInt("archerShot", RivalD.Instance.factor.archerShot);
+        PlayerPrefs.SetInt("archerShot", (int)RivalD.Instance.factor.archerShot);
     }
 
     public void SetCharacterSpeedFactor()
     {
-        PlayerPrefs.SetInt("characterSpeed", RivalD.Instance.factor.characterSpeed);
+        PlayerPrefs.SetInt("characterSpeed", (int)RivalD.Instance.factor.characterSpeed);
+    }
+
+    private void SetTowerFactor()
+    {
+        PlayerPrefs.SetInt("tower", (int)RivalD.Instance.field.Tower);
     }
 
     public void MoneySet()

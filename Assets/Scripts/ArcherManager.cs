@@ -17,7 +17,6 @@ public class ArcherManager : MonoSingleton<ArcherManager>
     public List<int> ArcherType = new List<int>();
     public List<bool> ArcherBool = new List<bool>();
     public Stack<GameObject> Rival = new Stack<GameObject>();
-    [SerializeField] private int _towerCount;
     [SerializeField] private int _OPArrowCount, _OPRivalCount, _OPParticalCount;
     public GameObject focusRival;
     public int totalRival, DeadRival;
@@ -33,7 +32,7 @@ public class ArcherManager : MonoSingleton<ArcherManager>
     private void TowerSelected()
     {
         //Tower bilgi atamasý
-        for (int i1 = 0; i1 < _towerCount; i1++)
+        for (int i1 = 0; i1 < RivalD.Instance.field.Tower; i1++)
         {
             for (int i2 = 0; i2 < 3; i2++)
             {
@@ -64,7 +63,7 @@ public class ArcherManager : MonoSingleton<ArcherManager>
                 {
                     focusRival = Rival.Pop();
                     CharacterRotation.Instance.rival = focusRival;
-                    for (int i = 0; i < _towerCount; i++)
+                    for (int i = 0; i < RivalD.Instance.field.Tower; i++)
                     {
                         Towers[i].Archer[ArcherType[i]].GetComponent<ArcherRotate>().rival = focusRival;
                     }
@@ -78,7 +77,7 @@ public class ArcherManager : MonoSingleton<ArcherManager>
                 if (!GameStart.Instance.inFail)
                 {
                     //kulelerin hepsinni ateþ etmesi saðlanýyor
-                    for (int i = 0; i < _towerCount; i++)
+                    for (int i = 0; i < RivalD.Instance.field.Tower; i++)
                     {
                         //objecting pooldan arrow çekiyoruz. rotasyon ve position atamasý yapýlýr ve Arrow takip edilir
                         GameObject objArrow = ObjectPlacement(_OPArrowCount, i);
@@ -101,5 +100,19 @@ public class ArcherManager : MonoSingleton<ArcherManager>
         objArrow.transform.position = Towers[i].ArrowPos[ArcherType[i]].transform.position;
         objArrow.transform.rotation = Towers[i].ArrowPos[ArcherType[i]].transform.rotation;
         return objArrow;
+    }
+
+    public void TowerAdd()
+    {
+        ArcherType.Add(0);
+        ArcherBool.Add(true);
+        for (int i2 = 0; i2 < 3; i2++)
+        {
+            Towers[(int)RivalD.Instance.field.Tower - 1].Tower.Add(Towers[(int)RivalD.Instance.field.Tower - 1].TowerTemplate.transform.GetChild((i2 * 2)).gameObject);
+            Towers[(int)RivalD.Instance.field.Tower - 1].Archer.Add(Towers[(int)RivalD.Instance.field.Tower - 1].TowerTemplate.transform.GetChild(1 + (i2 * 2)).gameObject);
+            Towers[(int)RivalD.Instance.field.Tower - 1].ArrowPos.Add(Towers[(int)RivalD.Instance.field.Tower - 1].TowerTemplate.transform.GetChild(1 + (i2 * 2)).transform.GetChild(0).gameObject);
+        }
+        Towers[(int)RivalD.Instance.field.Tower - 1].Tower[ArcherType[(int)RivalD.Instance.field.Tower - 1]].SetActive(true);
+        Towers[(int)RivalD.Instance.field.Tower - 1].Archer[ArcherType[(int)RivalD.Instance.field.Tower - 1]].SetActive(true);
     }
 }

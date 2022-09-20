@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArrowTouch : MonoBehaviour
 {
     [SerializeField] private int _OPRivalCount, _OPParticalCount, _OPArrowCount;
+    [SerializeField] private int minRandomMoney, maxRandomMoney;
     [SerializeField] private float _particalTime;
 
     private void OnTriggerEnter(Collider other)
@@ -15,6 +16,8 @@ public class ArrowTouch : MonoBehaviour
             ObjectPool.Instance.AddObject(_OPArrowCount, other.gameObject);
             other.GetComponent<ArrowFollow>().touchBool = true;
             transform.SetParent(RivalWalk.Instance.rivalFreeParent.transform);
+            GameStart.Instance.money += Random.Range(minRandomMoney, maxRandomMoney);
+            GameStart.Instance.MoneySet();
             Partical(other);
             ArcherManager.Instance.DeadRival++;
 

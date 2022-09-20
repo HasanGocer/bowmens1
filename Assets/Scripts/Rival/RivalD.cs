@@ -10,41 +10,20 @@ public class RivalD : MonoSingleton<RivalD>
     [System.Serializable]
     public class Field
     {
-        public float archerArrowSpeed, archerShot, characterSpeed;
+        public float archerArrowSpeed, archerShot, characterSpeed, Tower;
     }
     public Field field;
 
-    [System.Serializable]
-    public class Factor
-    {
-        public int archerArrowSpeed, archerShot, characterSpeed;
-    }
-    public Factor factor;
-
-    [System.Serializable]
-    public class Constant
-    {
-        public float arcerArrowSpeed, archerShot, characterSpeed;
-    }
-    public Constant constant;
-
-    [System.Serializable]
-    public class MaxFactor
-    {
-        public int archerArrowSpeed, archerShot, characterSpeed;
-    }
-    public MaxFactor maxFactor;
-
-    [System.Serializable]
-    public class Max
-    {
-        public float archerArrowSpeed, archerShot, characterSpeed;
-    }
-    public Max max;
+    public Field factor;
+    public Field constant;
+    public Field maxFactor;
+    public Field max;
+    public Field fieldPrice;
+    public Field fieldPriceFactor;
 
     private void Start()
     {
-        field.archerArrowSpeed = rivalData.archerArrowSpeedStandart - (factor.archerArrowSpeed * constant.arcerArrowSpeed);
+        field.archerArrowSpeed = rivalData.archerArrowSpeedStandart - (factor.archerArrowSpeed * constant.archerArrowSpeed);
         field.archerShot = rivalData.archerShotStandart + (factor.archerShot * constant.archerShot);
         field.characterSpeed = rivalData.characterSpeedStandart + (factor.characterSpeed * constant.characterSpeed);
 

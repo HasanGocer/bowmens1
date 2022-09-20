@@ -70,7 +70,7 @@ public class RivalWalk : MonoSingleton<RivalWalk>
 
                     if (_rivalPart < RivalD.Instance.factor.archerArrowSpeed + RivalD.Instance.factor.archerShot + RivalD.Instance.factor.characterSpeed)
                     {
-                        _rivalPart = RivalD.Instance.factor.archerArrowSpeed + RivalD.Instance.factor.archerShot + RivalD.Instance.factor.characterSpeed;
+                        _rivalPart = (int)(RivalD.Instance.factor.archerArrowSpeed + RivalD.Instance.factor.archerShot + RivalD.Instance.factor.characterSpeed);
                     }
                     if (_rivalPart >= GameStart.Instance.finishGame)
                     {

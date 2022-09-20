@@ -98,6 +98,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _OPRivalCount: 1
   _OPParticalCount: 3
+  _OPArrowCount: 0
+  minRandomMoney: 1
+  maxRandomMoney: 7
   _particalTime: 3
 --- !u!136 &8686620448953465142
 CapsuleCollider:
