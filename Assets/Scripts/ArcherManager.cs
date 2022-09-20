@@ -19,7 +19,7 @@ public class ArcherManager : MonoSingleton<ArcherManager>
     public Stack<GameObject> Rival = new Stack<GameObject>();
     [SerializeField] private int _towerCount;
     [SerializeField] private int _OPArrowCount, _OPRivalCount, _OPParticalCount;
-    [SerializeField] private GameObject _focusRival;
+    public GameObject focusRival;
     private float _rotationCountdown = 0.1f;
 
     private void Start()
@@ -31,6 +31,7 @@ public class ArcherManager : MonoSingleton<ArcherManager>
 
     private void TowerSelected()
     {
+        _towerCount = Towers.Length;
         //Tower bilgi atamasý
         for (int i1 = 0; i1 < _towerCount; i1++)
         {
@@ -39,7 +40,19 @@ public class ArcherManager : MonoSingleton<ArcherManager>
                 Towers[i1].Tower.Add(Towers[i1].TowerTemplate.transform.GetChild((i2 * 2)).gameObject);
                 Towers[i1].Archer.Add(Towers[i1].TowerTemplate.transform.GetChild(1 + (i2 * 2)).gameObject);
                 Towers[i1].ArrowPos.Add(Towers[i1].TowerTemplate.transform.GetChild(1 + (i2 * 2)).transform.GetChild(0).gameObject);
+
             }
+
+            if ((ArcherBool.Count - 1) < i1)
+            {
+                ArcherBool.Add(true);
+            }
+
+            if ((ArcherType.Count - 1) < i1)
+            {
+                ArcherType.Add(0);
+            }
+
             if (ArcherBool[i1])
             {
                 Towers[i1].Tower[ArcherType[i1]].SetActive(true);
@@ -57,18 +70,23 @@ public class ArcherManager : MonoSingleton<ArcherManager>
             if (Rival.Count > 0)
             {
                 //Rival hareketi bittiðinde setactive kapandýðýndan öncesindeki rival a odaklanýyor
-                if (!_focusRival.activeInHierarchy)
+                if (!focusRival.activeInHierarchy)
                 {
-                    _focusRival = Rival.Pop();
+                    focusRival = Rival.Pop();
                     for (int i = 0; i < _towerCount; i++)
                     {
-                        Towers[i].Archer[ArcherType[i]].GetComponent<ArcherRotate>().rival = _focusRival;
+                        Towers[i].Archer[ArcherType[i]].GetComponent<ArcherRotate>().rival = focusRival;
                     }
                     yield return new WaitForSeconds(_rotationCountdown);
 
                     if (Rival.Count == 0)
                     {
                         GameStart.Instance.lastOne = true;
+                        if (!focusRival.activeInHierarchy)
+                        {
+                            GameStart.Instance.lastOne = false;
+                            GameStart.Instance.inMarket = true;
+                        }
                     }
                 }
                 if (!GameStart.Instance.inFail)
@@ -79,8 +97,8 @@ public class ArcherManager : MonoSingleton<ArcherManager>
                         //objecting pooldan arrow çekiyoruz. rotasyon ve position atamasý yapýlýr ve Arrow takip edilir
                         GameObject objArrow = ObjectPlacement(_OPArrowCount, i);
 
-                        //StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV1( _focusRival));
-                        StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV2(_focusRival));
+                        //StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV1( focusRival));
+                        StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV2(focusRival));
                         yield return new WaitForSeconds(_rotationCountdown);
                     }
                     yield return new WaitForSeconds(1 / RivalD.Instance.field.archerShot);

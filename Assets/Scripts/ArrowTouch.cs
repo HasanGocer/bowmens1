@@ -9,7 +9,7 @@ public class ArrowTouch : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Arrow"))
+        if (other.CompareTag("Arrow")&& !GameStart.Instance.inFail)
         {
             ObjectPool.Instance.AddObject(_OPRivalCount, this.gameObject);
             transform.SetParent(RivalWalk.Instance.rivalFreeParent.transform);

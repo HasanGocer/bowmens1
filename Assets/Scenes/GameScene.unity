@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.15457445, g: 0.15929838, b: 0.2546651, a: 1}
+  m_IndirectSpecularColor: {r: 0.15457457, g: 0.15929843, b: 0.25466532, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2648,7 +2648,7 @@ MonoBehaviour:
   _OPArrowCount: 0
   _OPRivalCount: 1
   _OPParticalCount: 3
-  _focusRival: {fileID: 2704831033213863247, guid: fd939c0e39129d14ba35a44b8e58a612, type: 3}
+  focusRival: {fileID: 0}
 --- !u!1 &1201516295
 GameObject:
   m_ObjectHideFlags: 0
@@ -4636,7 +4636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1956273459
 Transform:
   m_ObjectHideFlags: 0
@@ -6171,6 +6171,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 942959801444907521}
+  - component: {fileID: 942959801445328492}
+  - component: {fileID: 942959801445328490}
   - component: {fileID: 942959801435837901}
   - component: {fileID: 942959801445328484}
   - component: {fileID: 942959801445328486}
@@ -6274,6 +6276,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &942959801445328490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942959801445328483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a6ce7baec55c646acafb31281a9fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _OPArrowCount: 0
+  _countdawnArrow: 0.2
 --- !u!1 &942959801445328491
 GameObject:
   m_ObjectHideFlags: 0
@@ -6290,6 +6306,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &942959801445328492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942959801445328483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf88d016a8449649aa2bc33e557846b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rival: {fileID: 0}
 --- !u!1 &942959801445328493
 GameObject:
   m_ObjectHideFlags: 0
