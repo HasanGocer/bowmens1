@@ -232,7 +232,8 @@ public class Buttons : MonoSingleton<Buttons>
 
     private void RewardOpen()
     {
-        mainChestGame.SetActive(false);
+        marketGame.SetActive(false);
+        mainChestGame.SetActive(true);
         chestChoseGame.SetActive(true);
     }
 
@@ -240,10 +241,14 @@ public class Buttons : MonoSingleton<Buttons>
     {
         mainChestGame.SetActive(false);
         openChestGame.SetActive(false);
+        chestChoseGame.SetActive(true);
+        marketGame.SetActive(true);
     }
 
     private void BackToTheGame()
     {
+        GameStart.Instance.lastOne = false;
+        GameStart.Instance.inFight = false;
         marketGame.SetActive(false);
     }
 }

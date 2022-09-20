@@ -32,7 +32,6 @@ public class ArcherManager : MonoSingleton<ArcherManager>
 
     private void TowerSelected()
     {
-        _towerCount = Towers.Length;
         //Tower bilgi atamasý
         for (int i1 = 0; i1 < _towerCount; i1++)
         {
@@ -42,16 +41,6 @@ public class ArcherManager : MonoSingleton<ArcherManager>
                 Towers[i1].Archer.Add(Towers[i1].TowerTemplate.transform.GetChild(1 + (i2 * 2)).gameObject);
                 Towers[i1].ArrowPos.Add(Towers[i1].TowerTemplate.transform.GetChild(1 + (i2 * 2)).transform.GetChild(0).gameObject);
 
-            }
-
-            if ((ArcherBool.Count - 1) < i1)
-            {
-                ArcherBool.Add(true);
-            }
-
-            if ((ArcherType.Count - 1) < i1)
-            {
-                ArcherType.Add(0);
             }
 
             if (ArcherBool[i1])

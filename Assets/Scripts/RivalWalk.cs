@@ -32,15 +32,10 @@ public class RivalWalk : MonoSingleton<RivalWalk>
     {
         while (true)
         {
-            if (GameStart.Instance.gameStart && !GameStart.Instance.inFight && !GameStart.Instance.inGameFinish)
+            if (GameStart.Instance.gameStart && !GameStart.Instance.inFight)
             {
                 TeleportRival();
-                _rivalPart++;
                 yield return new WaitForSeconds(_spawnTime);
-            }
-            if (GameStart.Instance.inGameFinish)
-            {
-                Buttons.Instance.finishGame.SetActive(true);
             }
             yield return null;
         }
@@ -76,6 +71,11 @@ public class RivalWalk : MonoSingleton<RivalWalk>
                     if (_rivalPart < RivalD.Instance.factor.archerArrowSpeed + RivalD.Instance.factor.archerShot + RivalD.Instance.factor.characterSpeed)
                     {
                         _rivalPart = RivalD.Instance.factor.archerArrowSpeed + RivalD.Instance.factor.archerShot + RivalD.Instance.factor.characterSpeed;
+                    }
+                    if (_rivalPart >= GameStart.Instance.finishGame)
+                    {
+                        _rivalPart = GameStart.Instance.finishGame;
+                        GameStart.Instance.inGameFinish = true;
                     }
                     StartCoroutine(FinishWalk(obj));
                 }

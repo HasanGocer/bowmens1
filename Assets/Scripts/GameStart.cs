@@ -14,7 +14,7 @@ public class GameStart : MonoSingleton<GameStart>
 
     public int MarketSelectWindow;
 
-    public int vibration, sound, level, money;
+    public int vibration, sound, level, money, finishGame;
 
     private void Awake()
     {

@@ -22,9 +22,16 @@ public class ArrowTouch : MonoBehaviour
 
             if (GameStart.Instance.lastOne)
             {
-                GameStart.Instance.inMarket = true;
-                Buttons.Instance.marketGame.SetActive(true);
-                ArcherManager.Instance.DeadRival = 0;
+                if (GameStart.Instance.inGameFinish)
+                {
+                    Buttons.Instance.finishGame.SetActive(true);
+                }
+                else
+                {
+                    GameStart.Instance.inMarket = true;
+                    Buttons.Instance.marketGame.SetActive(true);
+                    ArcherManager.Instance.DeadRival = 0;
+                }
             }
         }
     }

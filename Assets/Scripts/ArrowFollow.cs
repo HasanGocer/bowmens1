@@ -46,6 +46,7 @@ public class ArrowFollow : MonoBehaviour
     {
         _arrowTime = RivalD.Instance.field.archerArrowSpeed;
         this.transform.DOMove(rival.transform.position, _arrowTime);
+        transform.LookAt(rival.transform.position);
         yield return new WaitForSeconds(_arrowTime);
         ObjectPool.Instance.AddObject(_OPArrowCount, this.gameObject);
     }
