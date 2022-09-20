@@ -7,20 +7,24 @@ public class CharacterShot : MonoBehaviour
     [SerializeField] private int _OPArrowCount;
     [SerializeField] private float _countdawnArrow;
 
+    private void Start()
+    {
+        StartCoroutine(Shot());
+    }
+
     IEnumerator Shot()
     {
-        if (ArcherManager.Instance.focusRival.activeInHierarchy)
+        while (true)
         {
-            CharacterRotation.Instance.rival = ArcherManager.Instance.focusRival;
+            if (ArcherManager.Instance.focusRival.activeInHierarchy)
+            {
+                GameObject objArrow = ObjectPlacement(_OPArrowCount);
 
-            GameObject objArrow = ObjectPlacement(_OPArrowCount);
-
-            StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV2(ArcherManager.Instance.focusRival));
-            yield return new WaitForSeconds(_countdawnArrow);
-
+                StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV2(ArcherManager.Instance.focusRival));
+                yield return new WaitForSeconds(_countdawnArrow);
+            }
+            yield return null;
         }
-
-        yield return null;
     }
 
     private GameObject ObjectPlacement(int _OPArrowCount)

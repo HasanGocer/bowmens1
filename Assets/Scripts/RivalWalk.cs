@@ -81,6 +81,7 @@ public class RivalWalk : MonoSingleton<RivalWalk>
                 }
             }
         }
+        ArcherManager.Instance.totalRival = ((_rivalPart) * (_rivalPart + 1)) / 2;
         rivalParent.transform.DOPath(PathV3, _rivalWalkTime).SetEase(Ease.InSine);
 
     }

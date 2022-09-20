@@ -6,6 +6,7 @@ using DG.Tweening;
 public class ArrowFollow : MonoBehaviour
 {
     public bool followBool;
+    public bool touchBool;
     [SerializeField] private float _arrowCountdown;
     private float _arrowTime;
     [SerializeField] private int _OPArrowCount;
@@ -35,7 +36,7 @@ public class ArrowFollow : MonoBehaviour
         }
 
         //ölme yeri
-        if (followBool)
+        if (followBool && !touchBool)
         {
             ObjectPool.Instance.AddObject(_OPArrowCount, this.gameObject);
             //partical 

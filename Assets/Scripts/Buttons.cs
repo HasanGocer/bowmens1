@@ -25,7 +25,8 @@ public class Buttons : MonoSingleton<Buttons>
     [SerializeField] private Text _archerArrowSpeedText, _archerShotText, _characterSpeedtext;
     [SerializeField] private List<Button> _marketSelectedButton = new List<Button>();
     [SerializeField] private List<GameObject> _marketSelectedGame = new List<GameObject>();
-    [SerializeField] private GameObject _marketGame;
+    [SerializeField] private Button backToGame;
+    public GameObject marketGame;
 
     [SerializeField] private Button _finishButton;
     public GameObject finishGame;
@@ -49,6 +50,7 @@ public class Buttons : MonoSingleton<Buttons>
         _archerArrowSpeedButton.onClick.AddListener(ArcherArrowSpeedFactorPlus);
         _archerShotButton.onClick.AddListener(ArcherShotFactorPlus);
         _characterSpeedButton.onClick.AddListener(CharacterSpeedFactorPlus);
+        backToGame.onClick.AddListener(BackToTheGame);
         _settingButton.onClick.AddListener(SettingButton);
         _settingBackButton.onClick.AddListener(SettingBackButton);
         _finishButton.onClick.AddListener(FinishButton);
@@ -238,5 +240,10 @@ public class Buttons : MonoSingleton<Buttons>
     {
         mainChestGame.SetActive(false);
         openChestGame.SetActive(false);
+    }
+
+    private void BackToTheGame()
+    {
+        marketGame.SetActive(false);
     }
 }

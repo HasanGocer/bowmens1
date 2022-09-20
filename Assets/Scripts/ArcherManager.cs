@@ -20,6 +20,7 @@ public class ArcherManager : MonoSingleton<ArcherManager>
     [SerializeField] private int _towerCount;
     [SerializeField] private int _OPArrowCount, _OPRivalCount, _OPParticalCount;
     public GameObject focusRival;
+    public int totalRival, DeadRival;
     private float _rotationCountdown = 0.1f;
 
     private void Start()
@@ -73,20 +74,16 @@ public class ArcherManager : MonoSingleton<ArcherManager>
                 if (!focusRival.activeInHierarchy)
                 {
                     focusRival = Rival.Pop();
+                    CharacterRotation.Instance.rival = focusRival;
                     for (int i = 0; i < _towerCount; i++)
                     {
                         Towers[i].Archer[ArcherType[i]].GetComponent<ArcherRotate>().rival = focusRival;
                     }
                     yield return new WaitForSeconds(_rotationCountdown);
 
-                    if (Rival.Count == 0)
+                    if (DeadRival == totalRival - 1)
                     {
                         GameStart.Instance.lastOne = true;
-                        if (!focusRival.activeInHierarchy)
-                        {
-                            GameStart.Instance.lastOne = false;
-                            GameStart.Instance.inMarket = true;
-                        }
                     }
                 }
                 if (!GameStart.Instance.inFail)
