@@ -120,7 +120,7 @@ public class GameStart : MonoSingleton<GameStart>
         PlayerPrefs.SetInt("characterSpeed", (int)RivalD.Instance.factor.characterSpeed);
     }
 
-    private void SetTowerFactor()
+    public void SetTowerFactor()
     {
         PlayerPrefs.SetInt("tower", (int)RivalD.Instance.field.Tower);
     }

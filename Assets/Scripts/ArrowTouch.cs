@@ -7,11 +7,14 @@ public class ArrowTouch : MonoBehaviour
     [SerializeField] private int _OPRivalCount, _OPParticalCount, _OPArrowCount;
     [SerializeField] private int minRandomMoney, maxRandomMoney;
     [SerializeField] private float _particalTime;
+    [SerializeField] private bool inArrow;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Arrow") && !GameStart.Instance.inFail)
+        if (other.CompareTag("Arrow") && !GameStart.Instance.inFail && !inArrow)
         {
+            ArcherManager.Instance.DeadRival++;
+            inArrow = true;
             ObjectPool.Instance.AddObject(_OPRivalCount, this.gameObject);
             ObjectPool.Instance.AddObject(_OPArrowCount, other.gameObject);
             other.GetComponent<ArrowFollow>().touchBool = true;
@@ -19,7 +22,6 @@ public class ArrowTouch : MonoBehaviour
             GameStart.Instance.money += Random.Range(minRandomMoney, maxRandomMoney);
             GameStart.Instance.MoneySet();
             Partical(other);
-            ArcherManager.Instance.DeadRival++;
 
             other.GetComponent<ArrowFollow>().followBool = true;
 
@@ -36,6 +38,11 @@ public class ArrowTouch : MonoBehaviour
                     ArcherManager.Instance.DeadRival = 0;
                 }
             }
+        }
+        else if (other.CompareTag("Player"))
+        {
+            Buttons.Instance.failGame.SetActive(true);
+            GameStart.Instance.inFail = true;
         }
     }
 

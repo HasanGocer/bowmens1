@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52cf48fe1148d7e47b81a55980eaa02d, type: 3}
-  m_Name: RivalDataSO1
+  m_Name: RivalData
   m_EditorClassIdentifier: 
   archerArrowSpeedStandart: 0.7
-  archerShotStandart: 0.4
+  archerShotStandart: 2
   characterSpeedStandart: 2

@@ -73,6 +73,13 @@ public class ArcherManager : MonoSingleton<ArcherManager>
                     {
                         GameStart.Instance.lastOne = true;
                     }
+                    if (DeadRival == totalRival)
+                    {
+                        Buttons.Instance.startGame.SetActive(true);
+                        ArcherManager.Instance.DeadRival = 0;
+                        GameStart.Instance.gameStart = false;
+                        GameStart.Instance.lastOne = false;
+                    }
                 }
                 if (!GameStart.Instance.inFail)
                 {
