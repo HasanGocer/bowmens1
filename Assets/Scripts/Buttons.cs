@@ -77,7 +77,6 @@ public class Buttons : MonoSingleton<Buttons>
         _towerPriceText.text = "Price : " + RivalD.Instance.fieldPrice.Tower;
 
 
-
         if (GameStart.Instance.sound == 1)
         {
             _soundButton.gameObject.GetComponent<Image>().sprite = _green;
@@ -100,7 +99,8 @@ public class Buttons : MonoSingleton<Buttons>
 
     private void TowerFactorPlus()
     {
-        if (RivalD.Instance.fieldPrice.Tower <= GameStart.Instance.money)
+
+        if (RivalD.Instance.fieldPrice.Tower <= GameStart.Instance.money && RivalD.Instance.field.Tower <= RivalD.Instance.maxFactor.Tower - 1)
         {
             GameStart.Instance.money -= (int)RivalD.Instance.fieldPrice.Tower;
             GameStart.Instance.MoneySet();
@@ -109,19 +109,20 @@ public class Buttons : MonoSingleton<Buttons>
             ArcherManager.Instance.TowerAdd();
             _towerPriceText.text = "Price : " + RivalD.Instance.fieldPrice.Tower;
             GameStart.Instance.SetTowerFactor();
-            _towerText.text = RivalD.Instance.field.archerArrowSpeed.ToString();
+            _towerText.text = RivalD.Instance.field.Tower.ToString();
 
         }
     }
 
     private void ArcherArrowSpeedFactorPlus()
     {
-        if (RivalD.Instance.fieldPrice.archerArrowSpeed <= GameStart.Instance.money)
+        if (RivalD.Instance.fieldPrice.archerArrowSpeed <= GameStart.Instance.money && RivalD.Instance.factor.Tower <= RivalD.Instance.maxFactor.Tower)
         {
             GameStart.Instance.money -= (int)RivalD.Instance.fieldPrice.archerArrowSpeed;
             GameStart.Instance.MoneySet();
             RivalD.Instance.fieldPrice.archerArrowSpeed = (int)((float)RivalD.Instance.fieldPrice.archerArrowSpeed * RivalD.Instance.fieldPriceFactor.archerArrowSpeed);
             RivalD.Instance.factor.archerArrowSpeed++;
+            RivalD.Instance.ArrowSpeed();
             _archerArrowSpeedPriceText.text = "Price : " + RivalD.Instance.fieldPrice.archerArrowSpeed;
             GameStart.Instance.SetArcherArrowSpeedFactor();
             _archerArrowSpeedText.text = RivalD.Instance.field.archerArrowSpeed.ToString();
@@ -130,26 +131,28 @@ public class Buttons : MonoSingleton<Buttons>
 
     private void ArcherShotFactorPlus()
     {
-        if (RivalD.Instance.fieldPrice.archerShot <= GameStart.Instance.money)
+        if (RivalD.Instance.fieldPrice.archerShot <= GameStart.Instance.money && RivalD.Instance.factor.Tower <= RivalD.Instance.maxFactor.Tower)
         {
             GameStart.Instance.money -= (int)RivalD.Instance.fieldPrice.archerShot;
-            GameStart.Instance.MoneySet();
-            RivalD.Instance.fieldPrice.archerShot = (int)((float)RivalD.Instance.fieldPrice.archerShot * RivalD.Instance.fieldPriceFactor.archerShot);
             RivalD.Instance.factor.archerShot++;
+            RivalD.Instance.ArrowShot();
+            RivalD.Instance.fieldPrice.archerShot = (int)((float)RivalD.Instance.fieldPrice.archerShot * RivalD.Instance.fieldPriceFactor.archerShot);
             _archerShotPriceText.text = "Price : " + RivalD.Instance.fieldPrice.archerShot;
             GameStart.Instance.SetArcherShotFactor();
             _archerShotText.text = RivalD.Instance.field.archerShot.ToString();
+            GameStart.Instance.MoneySet();
         }
     }
 
     private void CharacterSpeedFactorPlus()
     {
-        if (RivalD.Instance.fieldPrice.characterSpeed <= GameStart.Instance.money)
+        if (RivalD.Instance.fieldPrice.characterSpeed <= GameStart.Instance.money && RivalD.Instance.factor.Tower <= RivalD.Instance.maxFactor.Tower)
         {
             GameStart.Instance.money -= (int)RivalD.Instance.fieldPrice.characterSpeed;
             GameStart.Instance.MoneySet();
             RivalD.Instance.fieldPrice.characterSpeed = (int)((float)RivalD.Instance.fieldPrice.characterSpeed * RivalD.Instance.fieldPriceFactor.characterSpeed);
             RivalD.Instance.factor.characterSpeed++;
+            RivalD.Instance.CharacterSpeed();
             _characterSpeedPriceText.text = "Price : " + RivalD.Instance.fieldPrice.characterSpeed;
             GameStart.Instance.SetCharacterSpeedFactor();
             _characterSpeedText.text = RivalD.Instance.field.characterSpeed.ToString();

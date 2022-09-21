@@ -14,8 +14,8 @@ public class ArcherManager : MonoSingleton<ArcherManager>
     }
     public TowerClass[] Towers;
 
-    public List<int> ArcherType = new List<int>();
-    public List<bool> ArcherBool = new List<bool>();
+    private List<int> ArcherType = new List<int>();
+    private List<bool> ArcherBool = new List<bool>();
     public Stack<GameObject> Rival = new Stack<GameObject>();
     [SerializeField] private int _OPArrowCount, _OPRivalCount, _OPParticalCount;
     public GameObject focusRival;
@@ -24,6 +24,8 @@ public class ArcherManager : MonoSingleton<ArcherManager>
 
     private void Start()
     {
+        Synchronization();
+
         TowerSelected();
 
         StartCoroutine(ArrowShot());
@@ -121,5 +123,14 @@ public class ArcherManager : MonoSingleton<ArcherManager>
         }
         Towers[(int)RivalD.Instance.field.Tower - 1].Tower[ArcherType[(int)RivalD.Instance.field.Tower - 1]].SetActive(true);
         Towers[(int)RivalD.Instance.field.Tower - 1].Archer[ArcherType[(int)RivalD.Instance.field.Tower - 1]].SetActive(true);
+    }
+
+    private void Synchronization()
+    {
+        for (int i = 0; i < RivalD.Instance.field.Tower; i++)
+        {
+            ArcherType.Add(0);
+            ArcherBool.Add(true);
+        }
     }
 }

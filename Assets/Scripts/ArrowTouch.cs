@@ -33,8 +33,9 @@ public class ArrowTouch : MonoBehaviour
                 }
                 else
                 {
-                    GameStart.Instance.inMarket = true;
-                    Buttons.Instance.marketGame.SetActive(true);
+                    GameStart.Instance.gameStart = false;
+                    GameStart.Instance.lastOne = false;
+                    Buttons.Instance.startGame.SetActive(true);
                     ArcherManager.Instance.DeadRival = 0;
                 }
             }

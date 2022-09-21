@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac74eb9c41037a44ae3b364ba415648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rivalData: {fileID: 11400000, guid: 96952644670d8b1448ab450af1ed0eac, type: 2}
+  rivalData: {fileID: 11400000, guid: 25ae00b1db22bab43862b1c4e182a20a, type: 2}
   field:
     archerArrowSpeed: 0
     archerShot: 0
@@ -336,7 +336,7 @@ MonoBehaviour:
     characterSpeed: 1
     Tower: 1
   constant:
-    archerArrowSpeed: 0.175
+    archerArrowSpeed: 0.2
     archerShot: 1.75
     characterSpeed: 1.75
     Tower: 1

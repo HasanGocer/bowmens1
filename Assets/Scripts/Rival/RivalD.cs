@@ -32,14 +32,48 @@ public class RivalD : MonoSingleton<RivalD>
             field.archerArrowSpeed = max.archerArrowSpeed;
         }
 
-        if (field.archerShot < max.archerShot)
+        if (field.archerShot > max.archerShot)
         {
             field.archerShot = max.archerShot;
         }
 
-        if (field.characterSpeed < max.characterSpeed)
+        if (field.characterSpeed > max.characterSpeed)
         {
             field.characterSpeed = max.characterSpeed;
         }
+    }
+
+    public void ArrowSpeed()
+    {
+        field.archerArrowSpeed = rivalData.archerArrowSpeedStandart - (factor.archerArrowSpeed * constant.archerArrowSpeed);
+
+        if (field.archerArrowSpeed < max.archerArrowSpeed)
+        {
+            field.archerArrowSpeed = max.archerArrowSpeed;
+        }
+    }
+
+    public void ArrowShot()
+    {
+        field.archerShot = rivalData.archerShotStandart + (factor.archerShot * constant.archerShot);
+
+        if (field.archerShot > max.archerShot)
+        {
+            field.archerShot = max.archerShot;
+        }
+    }
+
+    public void CharacterSpeed()
+    {
+        field.characterSpeed = rivalData.characterSpeedStandart + (factor.characterSpeed * constant.characterSpeed);
+
+        if (field.characterSpeed > max.characterSpeed)
+        {
+            field.characterSpeed = max.characterSpeed;
+        }
+    }
+    public void Tower()
+    {
+
     }
 }

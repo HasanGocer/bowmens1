@@ -85,13 +85,13 @@ public class GameStart : MonoSingleton<GameStart>
             PlayerPrefs.SetInt("characterSpeed", 1);
         }
 
-        if (PlayerPrefs.HasKey("Tower"))
+        if (PlayerPrefs.HasKey("tower"))
         {
-            RivalD.Instance.field.Tower = PlayerPrefs.GetInt("Tower");
+            RivalD.Instance.field.Tower = PlayerPrefs.GetInt("tower");
         }
         else
         {
-            PlayerPrefs.SetInt("Tower", 1);
+            PlayerPrefs.SetInt("tower", 1);
         }
     }
 
