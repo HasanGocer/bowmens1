@@ -28,6 +28,8 @@ public class ArcherManager : MonoSingleton<ArcherManager>
 
         TowerSelected();
 
+        StartCoroutine(RivalSelect());
+
         StartCoroutine(ArrowShot());
     }
 
@@ -61,28 +63,6 @@ public class ArcherManager : MonoSingleton<ArcherManager>
             if (Rival.Count > 0)
             {
                 //Rival hareketi bittiðinde setactive kapandýðýndan öncesindeki rival a odaklanýyor
-                if (!focusRival.activeInHierarchy)
-                {
-                    focusRival = Rival.Pop();
-                    CharacterRotation.Instance.rival = focusRival;
-                    for (int i = 0; i < RivalD.Instance.field.Tower; i++)
-                    {
-                        Towers[i].Archer[ArcherType[i]].GetComponent<ArcherRotate>().rival = focusRival;
-                    }
-                    yield return new WaitForSeconds(_rotationCountdown);
-
-                    if (DeadRival == totalRival - 1)
-                    {
-                        GameStart.Instance.lastOne = true;
-                    }
-                    if (DeadRival == totalRival)
-                    {
-                        Buttons.Instance.startGame.SetActive(true);
-                        ArcherManager.Instance.DeadRival = 0;
-                        GameStart.Instance.gameStart = false;
-                        GameStart.Instance.lastOne = false;
-                    }
-                }
                 if (!GameStart.Instance.inFail)
                 {
                     //kulelerin hepsinni ateþ etmesi saðlanýyor
@@ -96,6 +76,41 @@ public class ArcherManager : MonoSingleton<ArcherManager>
                         yield return new WaitForSeconds(_rotationCountdown);
                     }
                     yield return new WaitForSeconds(1 / RivalD.Instance.field.archerShot);
+                }
+            }
+            yield return null;
+        }
+    }
+
+    IEnumerator RivalSelect()
+    {
+        while (true)
+        {
+            if (Rival.Count > 0)
+            {
+                if (!focusRival.activeInHierarchy)
+                {
+                    focusRival = Rival.Pop();
+                    CharacterRotation.Instance.rival = focusRival;
+                    for (int i = 0; i < RivalD.Instance.field.Tower; i++)
+                    {
+                        Towers[i].Archer[ArcherType[i]].GetComponent<ArcherRotate>().rival = focusRival;
+                    }
+
+                    if (DeadRival == totalRival - 1)
+                    {
+                        GameStart.Instance.lastOne = true;
+                    }
+                }
+            }
+            else
+            {
+                if (DeadRival == totalRival)
+                {
+                    Buttons.Instance.startGame.SetActive(true);
+                    ArcherManager.Instance.DeadRival = 0;
+                    GameStart.Instance.gameStart = false;
+                    GameStart.Instance.lastOne = false;
                 }
             }
             yield return null;
