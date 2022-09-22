@@ -105,12 +105,20 @@ public class ArcherManager : MonoSingleton<ArcherManager>
             }
             else
             {
-                if (DeadRival == totalRival)
+                if (GameStart.Instance.inGameFinish && GameStart.Instance.inFinish)
                 {
-                    Buttons.Instance.startGame.SetActive(true);
-                    ArcherManager.Instance.DeadRival = 0;
-                    GameStart.Instance.gameStart = false;
-                    GameStart.Instance.lastOne = false;
+                    Buttons.Instance.finishGame.SetActive(true);
+                    Buttons.Instance.startGame.SetActive(false);
+                }
+                else
+                {
+                    if (DeadRival == totalRival)
+                    {
+                        Buttons.Instance.startGame.SetActive(true);
+                        ArcherManager.Instance.DeadRival = 0;
+                        GameStart.Instance.gameStart = false;
+                        GameStart.Instance.lastOne = false;
+                    }
                 }
             }
             yield return null;

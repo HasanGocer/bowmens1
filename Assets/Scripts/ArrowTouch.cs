@@ -27,11 +27,7 @@ public class ArrowTouch : MonoBehaviour
 
             if (GameStart.Instance.lastOne)
             {
-                if (GameStart.Instance.inGameFinish)
-                {
-                    Buttons.Instance.finishGame.SetActive(true);
-                }
-                else
+                if (!GameStart.Instance.inGameFinish)
                 {
                     GameStart.Instance.gameStart = false;
                     GameStart.Instance.lastOne = false;

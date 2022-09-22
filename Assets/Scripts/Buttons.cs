@@ -47,35 +47,10 @@ public class Buttons : MonoSingleton<Buttons>
     private void Start()
     {
         GameStart.Instance.money += 9999;
-        _startButton.onClick.AddListener(StartButton);
-        _soundButton.onClick.AddListener(SoundButton);
-        _vibrationButton.onClick.AddListener(VibrationButton);
-        _archerArrowSpeedButton.onClick.AddListener(ArcherArrowSpeedFactorPlus);
-        _archerShotButton.onClick.AddListener(ArcherShotFactorPlus);
-        _characterSpeedButton.onClick.AddListener(CharacterSpeedFactorPlus);
-        _towerButton.onClick.AddListener(TowerFactorPlus);
-        _marketButton.onClick.AddListener(MarketButton);
-        backToGame.onClick.AddListener(MarketBackButton);
-        _settingButton.onClick.AddListener(SettingButton);
-        _settingBackButton.onClick.AddListener(SettingBackButton);
-        _finishButton.onClick.AddListener(FinishButton);
-        _failResumeButton.onClick.AddListener(FailResumeButton);
-        _failRetryButton.onClick.AddListener(FailRetryButton);
-        _rewardButton.onClick.AddListener(RewardOpen);
-        _chest1Button.onClick.AddListener(OpenChest);
-        _chest2Button.onClick.AddListener(OpenChest);
-        _chest3Button.onClick.AddListener(OpenChest);
-        _rewardLastButton.onClick.AddListener(RewardLastButton);
 
-        _archerArrowSpeedText.text = RivalD.Instance.field.archerArrowSpeed.ToString();
-        _archerArrowSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.archerArrowSpeed;
-        _archerShotText.text = RivalD.Instance.field.archerShot.ToString();
-        _archerShotPriceText.text = "" + RivalD.Instance.fieldPrice.archerShot;
-        _characterSpeedText.text = RivalD.Instance.field.characterSpeed.ToString();
-        _characterSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.characterSpeed;
-        _towerText.text = RivalD.Instance.field.Tower.ToString();
-        _towerPriceText.text = "" + RivalD.Instance.fieldPrice.Tower;
+        ButtonStart();
 
+        TextStart();
 
         if (GameStart.Instance.sound == 1)
         {
@@ -97,18 +72,54 @@ public class Buttons : MonoSingleton<Buttons>
         }
     }
 
+    private void ButtonStart()
+    {
+        _startButton.onClick.AddListener(StartButton);
+        _soundButton.onClick.AddListener(SoundButton);
+        _vibrationButton.onClick.AddListener(VibrationButton);
+        _archerArrowSpeedButton.onClick.AddListener(ArcherArrowSpeedFactorPlus);
+        _archerShotButton.onClick.AddListener(ArcherShotFactorPlus);
+        _characterSpeedButton.onClick.AddListener(CharacterSpeedFactorPlus);
+        _towerButton.onClick.AddListener(TowerFactorPlus);
+        _marketButton.onClick.AddListener(MarketButton);
+        backToGame.onClick.AddListener(MarketBackButton);
+        _settingButton.onClick.AddListener(SettingButton);
+        _settingBackButton.onClick.AddListener(SettingBackButton);
+        _finishButton.onClick.AddListener(FinishButton);
+        _failResumeButton.onClick.AddListener(FailResumeButton);
+        _failRetryButton.onClick.AddListener(FailRetryButton);
+        _rewardButton.onClick.AddListener(RewardOpen);
+        _chest1Button.onClick.AddListener(OpenChest);
+        _chest2Button.onClick.AddListener(OpenChest);
+        _chest3Button.onClick.AddListener(OpenChest);
+        _rewardLastButton.onClick.AddListener(RewardLastButton);
+    }
+
+    private void TextStart()
+    {
+        _archerArrowSpeedText.text = RivalD.Instance.field.archerArrowSpeed.ToString();
+        _archerArrowSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.archerArrowSpeed;
+        _archerShotText.text = RivalD.Instance.field.archerShot.ToString();
+        _archerShotPriceText.text = "" + RivalD.Instance.fieldPrice.archerShot;
+        _characterSpeedText.text = RivalD.Instance.field.characterSpeed.ToString();
+        _characterSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.characterSpeed;
+        _towerText.text = RivalD.Instance.field.Tower.ToString();
+        _towerPriceText.text = "" + RivalD.Instance.fieldPrice.Tower;
+    }
+
     private void TowerFactorPlus()
     {
 
-        if (RivalD.Instance.fieldPrice.Tower <= GameStart.Instance.money && RivalD.Instance.field.Tower <= RivalD.Instance.maxFactor.Tower - 1)
+        if (RivalD.Instance.fieldPrice.Tower <= GameStart.Instance.money && RivalD.Instance.field.Tower <= RivalD.Instance.maxFactor.Tower - 1 && RivalD.Instance.field.Tower != RivalD.Instance.max.Tower)
         {
             GameStart.Instance.money -= (int)RivalD.Instance.fieldPrice.Tower;
             GameStart.Instance.MoneySet();
             RivalD.Instance.fieldPrice.Tower = (int)((float)RivalD.Instance.fieldPrice.Tower * RivalD.Instance.fieldPriceFactor.Tower);
             RivalD.Instance.field.Tower++;
             ArcherManager.Instance.TowerAdd();
-            _towerPriceText.text = "Price : " + RivalD.Instance.fieldPrice.Tower;
+            _towerPriceText.text = "" + RivalD.Instance.fieldPrice.Tower;
             GameStart.Instance.SetTowerFactor();
+            GameStart.Instance.SetTowerPrice();
             _towerText.text = RivalD.Instance.field.Tower.ToString();
 
         }
@@ -116,7 +127,7 @@ public class Buttons : MonoSingleton<Buttons>
 
     private void ArcherArrowSpeedFactorPlus()
     {
-        if (RivalD.Instance.fieldPrice.archerArrowSpeed <= GameStart.Instance.money && RivalD.Instance.factor.Tower <= RivalD.Instance.maxFactor.Tower)
+        if (RivalD.Instance.fieldPrice.archerArrowSpeed <= GameStart.Instance.money && RivalD.Instance.factor.archerArrowSpeed <= RivalD.Instance.maxFactor.archerArrowSpeed && RivalD.Instance.field.archerArrowSpeed != RivalD.Instance.max.archerArrowSpeed)
         {
             GameStart.Instance.money -= (int)RivalD.Instance.fieldPrice.archerArrowSpeed;
             GameStart.Instance.MoneySet();
@@ -125,13 +136,14 @@ public class Buttons : MonoSingleton<Buttons>
             RivalD.Instance.ArrowSpeed();
             _archerArrowSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.archerArrowSpeed;
             GameStart.Instance.SetArcherArrowSpeedFactor();
+            GameStart.Instance.SetArcherArrowSpeedPrice();
             _archerArrowSpeedText.text = RivalD.Instance.field.archerArrowSpeed.ToString();
         }
     }
 
     private void ArcherShotFactorPlus()
     {
-        if (RivalD.Instance.fieldPrice.archerShot <= GameStart.Instance.money && RivalD.Instance.factor.Tower <= RivalD.Instance.maxFactor.Tower)
+        if (RivalD.Instance.fieldPrice.archerShot <= GameStart.Instance.money && RivalD.Instance.factor.archerShot <= RivalD.Instance.maxFactor.archerShot && RivalD.Instance.field.archerShot != RivalD.Instance.max.archerShot)
         {
             GameStart.Instance.money -= (int)RivalD.Instance.fieldPrice.archerShot;
             RivalD.Instance.factor.archerShot++;
@@ -139,6 +151,7 @@ public class Buttons : MonoSingleton<Buttons>
             RivalD.Instance.fieldPrice.archerShot = (int)((float)RivalD.Instance.fieldPrice.archerShot * RivalD.Instance.fieldPriceFactor.archerShot);
             _archerShotPriceText.text = "" + RivalD.Instance.fieldPrice.archerShot;
             GameStart.Instance.SetArcherShotFactor();
+            GameStart.Instance.SetArcherShotPrice();
             _archerShotText.text = RivalD.Instance.field.archerShot.ToString();
             GameStart.Instance.MoneySet();
         }
@@ -146,7 +159,7 @@ public class Buttons : MonoSingleton<Buttons>
 
     private void CharacterSpeedFactorPlus()
     {
-        if (RivalD.Instance.fieldPrice.characterSpeed <= GameStart.Instance.money && RivalD.Instance.factor.Tower <= RivalD.Instance.maxFactor.Tower)
+        if (RivalD.Instance.fieldPrice.characterSpeed <= GameStart.Instance.money && RivalD.Instance.factor.characterSpeed <= RivalD.Instance.maxFactor.characterSpeed && RivalD.Instance.field.characterSpeed != RivalD.Instance.max.characterSpeed)
         {
             GameStart.Instance.money -= (int)RivalD.Instance.fieldPrice.characterSpeed;
             GameStart.Instance.MoneySet();
@@ -155,6 +168,7 @@ public class Buttons : MonoSingleton<Buttons>
             RivalD.Instance.CharacterSpeed();
             _characterSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.characterSpeed;
             GameStart.Instance.SetCharacterSpeedFactor();
+            GameStart.Instance.SetCharacterSpeedPrice();
             _characterSpeedText.text = RivalD.Instance.field.characterSpeed.ToString();
         }
     }
@@ -183,6 +197,7 @@ public class Buttons : MonoSingleton<Buttons>
     {
         _settingGame.SetActive(true);
         _GlobalGame.SetActive(false);
+
         if (GameStart.Instance.inFinish == true)
         {
             finishGame.SetActive(false);
@@ -198,6 +213,7 @@ public class Buttons : MonoSingleton<Buttons>
     {
         _settingGame.SetActive(false);
         _GlobalGame.SetActive(true);
+
         if (GameStart.Instance.inFinish == true)
         {
             finishGame.SetActive(true);
@@ -260,6 +276,7 @@ public class Buttons : MonoSingleton<Buttons>
     private void OpenChest()
     {
         int count = Random.Range(0, 10);
+
         if (count % 2 == 0)
         {
             chestChoseGame.SetActive(false);
@@ -302,6 +319,7 @@ public class Buttons : MonoSingleton<Buttons>
         _marketButton.gameObject.SetActive(false);
         GameStart.Instance.inMarket = true;
         marketGame.SetActive(true);
+        _marketButton.gameObject.SetActive(false);
 
         if (GameStart.Instance.inFinish == true)
         {
@@ -319,6 +337,7 @@ public class Buttons : MonoSingleton<Buttons>
         _marketButton.gameObject.SetActive(true);
         GameStart.Instance.inMarket = false;
         marketGame.SetActive(false);
+        _marketButton.gameObject.SetActive(true);
 
         if (GameStart.Instance.inFinish == true)
         {

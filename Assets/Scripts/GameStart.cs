@@ -58,40 +58,76 @@ public class GameStart : MonoSingleton<GameStart>
             PlayerPrefs.SetInt("sound", 1);
         }
 
-        if (PlayerPrefs.HasKey("archerArrowSpeed"))
+        if (PlayerPrefs.HasKey("archerArrowSpeedFactor"))
         {
-            RivalD.Instance.factor.archerArrowSpeed = PlayerPrefs.GetInt("archerArrowSpeed");
+            RivalD.Instance.factor.archerArrowSpeed = PlayerPrefs.GetInt("archerArrowSpeedFactor");
         }
         else
         {
-            PlayerPrefs.SetInt("archerArrowSpeed", 1);
+            PlayerPrefs.SetInt("archerArrowSpeedFactor", 1);
         }
 
-        if (PlayerPrefs.HasKey("archerShot"))
+        if (PlayerPrefs.HasKey("archerArrowSpeedPrice"))
         {
-            RivalD.Instance.factor.archerShot = PlayerPrefs.GetInt("archerShot");
+            RivalD.Instance.fieldPrice.archerArrowSpeed = PlayerPrefs.GetInt("archerArrowSpeedPrice");
         }
         else
         {
-            PlayerPrefs.SetInt("archerShot", 1);
+            PlayerPrefs.SetInt("archerArrowSpeedPrice", 1);
         }
 
-        if (PlayerPrefs.HasKey("characterSpeed"))
+        if (PlayerPrefs.HasKey("archerShotFactor"))
         {
-            RivalD.Instance.factor.characterSpeed = PlayerPrefs.GetInt("characterSpeed");
+            RivalD.Instance.factor.archerShot = PlayerPrefs.GetInt("archerShotFactor");
         }
         else
         {
-            PlayerPrefs.SetInt("characterSpeed", 1);
+            PlayerPrefs.SetInt("archerShotFactor", 1);
         }
 
-        if (PlayerPrefs.HasKey("tower"))
+        if (PlayerPrefs.HasKey("archerShotPrice"))
         {
-            RivalD.Instance.field.Tower = PlayerPrefs.GetInt("tower");
+            RivalD.Instance.fieldPrice.archerShot = PlayerPrefs.GetInt("archerShotPrice");
         }
         else
         {
-            PlayerPrefs.SetInt("tower", 1);
+            PlayerPrefs.SetInt("archerShotPrice", 1);
+        }
+
+        if (PlayerPrefs.HasKey("characterSpeedFactor"))
+        {
+            RivalD.Instance.factor.characterSpeed = PlayerPrefs.GetInt("characterSpeedFactor");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("characterSpeedFactor", 1);
+        }
+
+        if (PlayerPrefs.HasKey("characterSpeedPrice"))
+        {
+            RivalD.Instance.fieldPrice.characterSpeed = PlayerPrefs.GetInt("characterSpeedPrice");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("characterSpeedPrice", 1);
+        }
+
+        if (PlayerPrefs.HasKey("towerFactor"))
+        {
+            RivalD.Instance.field.Tower = PlayerPrefs.GetInt("towerFactor");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("towerFactor", 1);
+        }
+
+        if (PlayerPrefs.HasKey("towerPrice"))
+        {
+            RivalD.Instance.fieldPrice.Tower = PlayerPrefs.GetInt("towerPrice");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("towerPrice", 1);
         }
     }
 
@@ -107,22 +143,42 @@ public class GameStart : MonoSingleton<GameStart>
 
     public void SetArcherArrowSpeedFactor()
     {
-        PlayerPrefs.SetInt("archerArrowSpeed", (int)RivalD.Instance.factor.archerArrowSpeed);
+        PlayerPrefs.SetInt("archerArrowSpeedFactor", (int)RivalD.Instance.factor.archerArrowSpeed);
+    }
+
+    public void SetArcherArrowSpeedPrice()
+    {
+        PlayerPrefs.SetInt("archerArrowSpeedPrice", (int)RivalD.Instance.fieldPrice.archerArrowSpeed);
     }
 
     public void SetArcherShotFactor()
     {
-        PlayerPrefs.SetInt("archerShot", (int)RivalD.Instance.factor.archerShot);
+        PlayerPrefs.SetInt("archerShotFactor", (int)RivalD.Instance.factor.archerShot);
+    }
+
+    public void SetArcherShotPrice()
+    {
+        PlayerPrefs.SetInt("archerShotPrice", (int)RivalD.Instance.fieldPrice.archerShot);
     }
 
     public void SetCharacterSpeedFactor()
     {
-        PlayerPrefs.SetInt("characterSpeed", (int)RivalD.Instance.factor.characterSpeed);
+        PlayerPrefs.SetInt("characterSpeedFactor", (int)RivalD.Instance.factor.characterSpeed);
+    }
+
+    public void SetCharacterSpeedPrice()
+    {
+        PlayerPrefs.SetInt("characterSpeedPrice", (int)RivalD.Instance.fieldPrice.characterSpeed);
     }
 
     public void SetTowerFactor()
     {
-        PlayerPrefs.SetInt("tower", (int)RivalD.Instance.field.Tower);
+        PlayerPrefs.SetInt("towerFactor", (int)RivalD.Instance.field.Tower);
+    }
+
+    public void SetTowerPrice()
+    {
+        PlayerPrefs.SetInt("towerPrice", (int)RivalD.Instance.fieldPrice.Tower);
     }
 
     public void MoneySet()
