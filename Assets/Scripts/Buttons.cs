@@ -68,13 +68,13 @@ public class Buttons : MonoSingleton<Buttons>
         _rewardLastButton.onClick.AddListener(RewardLastButton);
 
         _archerArrowSpeedText.text = RivalD.Instance.field.archerArrowSpeed.ToString();
-        _archerArrowSpeedPriceText.text = "Price : " + RivalD.Instance.fieldPrice.archerArrowSpeed;
+        _archerArrowSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.archerArrowSpeed;
         _archerShotText.text = RivalD.Instance.field.archerShot.ToString();
-        _archerShotPriceText.text = "Price : " + RivalD.Instance.fieldPrice.archerShot;
+        _archerShotPriceText.text = "" + RivalD.Instance.fieldPrice.archerShot;
         _characterSpeedText.text = RivalD.Instance.field.characterSpeed.ToString();
-        _characterSpeedPriceText.text = "Price : " + RivalD.Instance.fieldPrice.characterSpeed;
+        _characterSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.characterSpeed;
         _towerText.text = RivalD.Instance.field.Tower.ToString();
-        _towerPriceText.text = "Price : " + RivalD.Instance.fieldPrice.Tower;
+        _towerPriceText.text = "" + RivalD.Instance.fieldPrice.Tower;
 
 
         if (GameStart.Instance.sound == 1)
@@ -123,7 +123,7 @@ public class Buttons : MonoSingleton<Buttons>
             RivalD.Instance.fieldPrice.archerArrowSpeed = (int)((float)RivalD.Instance.fieldPrice.archerArrowSpeed * RivalD.Instance.fieldPriceFactor.archerArrowSpeed);
             RivalD.Instance.factor.archerArrowSpeed++;
             RivalD.Instance.ArrowSpeed();
-            _archerArrowSpeedPriceText.text = "Price : " + RivalD.Instance.fieldPrice.archerArrowSpeed;
+            _archerArrowSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.archerArrowSpeed;
             GameStart.Instance.SetArcherArrowSpeedFactor();
             _archerArrowSpeedText.text = RivalD.Instance.field.archerArrowSpeed.ToString();
         }
@@ -137,7 +137,7 @@ public class Buttons : MonoSingleton<Buttons>
             RivalD.Instance.factor.archerShot++;
             RivalD.Instance.ArrowShot();
             RivalD.Instance.fieldPrice.archerShot = (int)((float)RivalD.Instance.fieldPrice.archerShot * RivalD.Instance.fieldPriceFactor.archerShot);
-            _archerShotPriceText.text = "Price : " + RivalD.Instance.fieldPrice.archerShot;
+            _archerShotPriceText.text = "" + RivalD.Instance.fieldPrice.archerShot;
             GameStart.Instance.SetArcherShotFactor();
             _archerShotText.text = RivalD.Instance.field.archerShot.ToString();
             GameStart.Instance.MoneySet();
@@ -153,7 +153,7 @@ public class Buttons : MonoSingleton<Buttons>
             RivalD.Instance.fieldPrice.characterSpeed = (int)((float)RivalD.Instance.fieldPrice.characterSpeed * RivalD.Instance.fieldPriceFactor.characterSpeed);
             RivalD.Instance.factor.characterSpeed++;
             RivalD.Instance.CharacterSpeed();
-            _characterSpeedPriceText.text = "Price : " + RivalD.Instance.fieldPrice.characterSpeed;
+            _characterSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.characterSpeed;
             GameStart.Instance.SetCharacterSpeedFactor();
             _characterSpeedText.text = RivalD.Instance.field.characterSpeed.ToString();
         }
