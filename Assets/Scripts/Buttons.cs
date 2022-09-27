@@ -46,7 +46,7 @@ public class Buttons : MonoSingleton<Buttons>
 
     private void Start()
     {
-        GameStart.Instance.money += 9999;
+        //GameStart.Instance.money += 9999;
 
         ButtonStart();
 
