@@ -8,6 +8,7 @@ public class CharacterShot : MonoBehaviour
 
     [SerializeField] private int _OPArrowCount;
     [SerializeField] private float _countdawnArrow;
+    [SerializeField] private GameObject objectPos;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class CharacterShot : MonoBehaviour
                 GameObject objArrow = ObjectPlacement(_OPArrowCount);
 
                 StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV2(ArcherManager.Instance.focusRival));
+                AnimationConrol.Instance.CallAttackAnimator();
                 yield return new WaitForSeconds(_countdawnArrow);
             }
             yield return null;
@@ -33,8 +35,8 @@ public class CharacterShot : MonoBehaviour
     {
         GameObject objArrow = ObjectPool.Instance.GetPooledObjectAdd(_OPArrowCount);
 
-        objArrow.transform.position = this.transform.position;
-        objArrow.transform.rotation = this.transform.rotation;
+        objArrow.transform.position = objectPos.transform.position;
+        objArrow.transform.rotation = objectPos.transform.rotation;
         return objArrow;
     }
 }
