@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //ana karakterin hareket scripti
+
     [SerializeField]
     private float movementSpeed;
     [SerializeField]
@@ -42,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
             if (touch.phase == TouchPhase.Moved)
             {
                 touchUp = touch.position;
+                AnimationConrol.Instance.CallRunningAnimtator();
             }
 
             if (touch.phase == TouchPhase.Ended)
@@ -49,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
                 touchDown = touch.position;
                 isMoving = false;
                 dragStarted = false;
+                AnimationConrol.Instance.CallIdleAnimator();
             }
 
             gameObject.transform.rotation = Quaternion.RotateTowards(transform.rotation, CalculateRotation(), rotationSpeed * Time.deltaTime);

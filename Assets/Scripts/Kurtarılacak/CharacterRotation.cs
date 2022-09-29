@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterRotation : MonoSingleton<CharacterRotation>
 {
+    //karakterin focuslanýlan rival a dönmesini saðlar
+
     public GameObject rival;
     private float rotx, rotz;
 
@@ -17,6 +19,7 @@ public class CharacterRotation : MonoSingleton<CharacterRotation>
                 rotz = this.transform.rotation.z;
                 this.transform.LookAt(rival.transform.position);
                 this.transform.rotation = Quaternion.Euler(new Vector3(rotx, this.transform.rotation.y, rotz));
+                
             }
         }
     }

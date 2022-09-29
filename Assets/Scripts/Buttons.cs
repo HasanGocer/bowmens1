@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class Buttons : MonoSingleton<Buttons>
 {
@@ -25,8 +26,15 @@ public class Buttons : MonoSingleton<Buttons>
     [SerializeField] private Button _archerArrowSpeedButton, _archerShotButton, _characterSpeedButton, _towerButton;
     [SerializeField] private Text _archerArrowSpeedText, _archerShotText, _characterSpeedText, _towerText;
     [SerializeField] private Text _archerArrowSpeedPriceText, _archerShotPriceText, _characterSpeedPriceText, _towerPriceText;
-    [SerializeField] private List<Button> _marketSelectedButton = new List<Button>();
+    [SerializeField] private Button[] _marketSelectedButton;
     [SerializeField] private List<GameObject> _marketSelectedGame = new List<GameObject>();
+    [SerializeField] private List<Button> _bowSelectButton = new List<Button>();
+    [SerializeField] private List<GameObject> _bowSelectGame = new List<GameObject>();
+    public List<int> bowSelectCount = new List<int>();
+    [SerializeField] private List<int> _bowSelectPrice = new List<int>();
+    [SerializeField] private List<GameObject> _bowSelectObject = new List<GameObject>();
+    [SerializeField] private int marketÝndex = 0, bowÝndex = 0;
+
     [SerializeField] private Button backToGame;
     public GameObject marketGame;
 
@@ -47,10 +55,10 @@ public class Buttons : MonoSingleton<Buttons>
     private void Start()
     {
         //GameStart.Instance.money += 9999;
+        TextStart();
 
         ButtonStart();
 
-        TextStart();
 
         if (GameStart.Instance.sound == 1)
         {
@@ -93,6 +101,18 @@ public class Buttons : MonoSingleton<Buttons>
         _chest2Button.onClick.AddListener(OpenChest);
         _chest3Button.onClick.AddListener(OpenChest);
         _rewardLastButton.onClick.AddListener(RewardLastButton);
+
+        _marketSelectedButton[0].onClick.AddListener(() => MarketSelected(0));
+        _marketSelectedButton[1].onClick.AddListener(() => MarketSelected(1));
+
+        _bowSelectButton[0].onClick.AddListener(() => BowSelected(0));
+        _bowSelectButton[1].onClick.AddListener(() => BowSelected(1));
+        _bowSelectButton[2].onClick.AddListener(() => BowSelected(2));
+        _bowSelectButton[3].onClick.AddListener(() => BowSelected(3));
+        _bowSelectButton[4].onClick.AddListener(() => BowSelected(4));
+        _bowSelectButton[5].onClick.AddListener(() => BowSelected(5));
+        _bowSelectButton[6].onClick.AddListener(() => BowSelected(6));
+        _bowSelectButton[7].onClick.AddListener(() => BowSelected(7));
     }
 
     private void TextStart()
@@ -105,6 +125,15 @@ public class Buttons : MonoSingleton<Buttons>
         _characterSpeedPriceText.text = "" + RivalD.Instance.fieldPrice.characterSpeed;
         _towerText.text = RivalD.Instance.field.Tower.ToString();
         _towerPriceText.text = "" + RivalD.Instance.fieldPrice.Tower;
+
+        for (int i = 0; i < _bowSelectButton.Count; i++)
+        {
+            if (bowSelectCount[i] == 0)
+            {
+                _bowSelectGame[i].transform.GetChild(0).gameObject.SetActive(true);
+                _bowSelectGame[i].transform.GetChild(2).gameObject.SetActive(false);
+            }
+        }
     }
 
     private void TowerFactorPlus()
@@ -173,16 +202,47 @@ public class Buttons : MonoSingleton<Buttons>
         }
     }
 
-    public void MarketSelected()
+    public void MarketSelected(int pageCount)
     {
-        for (int i = 0; i < _marketSelectedButton.Count; i++)
+        for (int i = 0; i < _marketSelectedButton.Length; i++)
         {
-            if (i == GameStart.Instance.MarketSelectWindow)
-            {
-                _marketSelectedGame[i].SetActive(true);
-                continue;
-            }
+            Debug.Log(pageCount);
             _marketSelectedGame[i].SetActive(false);
+        }
+        _marketSelectedGame[pageCount].SetActive(true);
+    }
+
+    public void BowSelected(int pageCount)
+    {
+        if (pageCount < 3)
+        {
+            //reklam
+        }
+
+        if (bowSelectCount[pageCount] == 2 && GameStart.Instance.money >= _bowSelectPrice[pageCount] && pageCount > 2)
+        {
+            GameStart.Instance.money -= _bowSelectPrice[pageCount];
+            GameStart.Instance.MoneySet();
+            _bowSelectGame[pageCount].transform.GetChild(2).gameObject.SetActive(false);
+            bowSelectCount[pageCount] = 0;
+            GameStart.Instance.BowSet(pageCount + 1);
+            _bowSelectGame[pageCount].transform.GetChild(0).gameObject.SetActive(true);
+            //gamestartta playerprefebs eklenip onlaylanmalý
+        }
+        else if (bowSelectCount[pageCount] == 0)
+        {
+            _bowSelectGame[pageCount].transform.GetChild(0).gameObject.SetActive(false);
+            bowSelectCount[pageCount] = 0;
+            _bowSelectGame[pageCount].transform.GetChild(1).gameObject.SetActive(true);
+            for (int i = 0; i < _bowSelectObject.Count; i++)
+            {
+                _bowSelectObject[i].SetActive(false);
+                _bowSelectGame[i].transform.GetChild(1).gameObject.SetActive(false);
+                _bowSelectGame[i].transform.GetChild(0).gameObject.SetActive(true);
+            }
+            _bowSelectObject[pageCount].SetActive(true);
+            _bowSelectGame[pageCount].transform.GetChild(0).gameObject.SetActive(false);
+            _bowSelectGame[pageCount].transform.GetChild(1).gameObject.SetActive(true);
         }
     }
 
@@ -329,7 +389,6 @@ public class Buttons : MonoSingleton<Buttons>
         {
             startGame.SetActive(false);
         }
-
     }
 
     private void MarketBackButton()

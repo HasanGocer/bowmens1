@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RivalFocus : MonoBehaviour
 {
+    //içinden geçen rivallarý focuslanmasýný saðlayan kod
+
     public List<GameObject> ControlObject = new List<GameObject>();
     private bool controlBool;
 

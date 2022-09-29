@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterShot : MonoBehaviour
 {
+    //karakterin ok atmasý için kullanýlan script
+
     [SerializeField] private int _OPArrowCount;
     [SerializeField] private float _countdawnArrow;
 

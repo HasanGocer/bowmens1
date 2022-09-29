@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SweetLerp : MonoBehaviour
 {
+    //KULLANILMIYOR
+
     public Image bar;
     [SerializeField] float Amount = 1, timerSpeed = 1;
 

@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class ArrowFollow : MonoBehaviour
 {
+    //okun hareket fonksiyonu burada bulunmaktadýr
+
     public bool followBool;
     public bool touchBool;
     [SerializeField] private float _arrowCountdown;
@@ -42,6 +44,7 @@ public class ArrowFollow : MonoBehaviour
             //partical 
         }
     }
+
     public IEnumerator ArrowRivalIntegratedV2(GameObject rival)
     {
         _arrowTime = RivalD.Instance.field.archerArrowSpeed;

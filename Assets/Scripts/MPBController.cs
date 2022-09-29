@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MPBController : MonoBehaviour
 {
+    //KULLANILMIYOR
+
     [SerializeField] private Color mainColor = Color.black;
 
     private Renderer _renderer = null;

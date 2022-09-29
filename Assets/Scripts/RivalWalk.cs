@@ -5,13 +5,13 @@ using DG.Tweening;
 
 public class RivalWalk : MonoSingleton<RivalWalk>
 {
-    [SerializeField] private float _spawnTime;
-    [SerializeField] private float _spawnMainTime;
+    //Rival larýn verilerilen pozisyonlarý takip etme fonksiyonu
+
     [SerializeField] private float _rivalWalkTime;
+    [SerializeField] private float _rivalSpawnCountDown;
     [SerializeField] private float distanceVertical, distanceHorizontal;
     [SerializeField] private int _rivalOPCount, _ParentOPCount;
     [SerializeField] private int _rivalPart = 1;
-    [SerializeField] private int HardCodeAhmetAbe = 5;
     public GameObject rivalFreeParent;
 
     [SerializeField] private GameObject[] PathGO;
@@ -25,48 +25,38 @@ public class RivalWalk : MonoSingleton<RivalWalk>
         {
             PathV3[i] = PathGO[i].transform.position;
         }
-        StartCoroutine(Walk());
     }
 
-    IEnumerator Walk()
+    private void Update()
     {
-        while (true)
+        if (GameStart.Instance.gameStart && !GameStart.Instance.inFight)
         {
-            if (GameStart.Instance.gameStart && !GameStart.Instance.inFight)
-            {
-                TeleportRival();
-                yield return new WaitForSeconds(_spawnTime);
-            }
-            yield return null;
+            StartCoroutine(TeleportRival());
         }
     }
 
-    private void TeleportRival()
+    IEnumerator TeleportRival()
     {
         GameStart.Instance.inFight = true;
-        GameObject rivalParent = ObjectPool.Instance.GetPooledObject(_ParentOPCount);
-        rivalParent.transform.position = rivalFreeParent.transform.position;
+
         for (int i1 = 1; i1 <= _rivalPart; i1++)
         {
             for (int i2 = 0; i2 < i1; i2++)
             {
+                GameObject rivalParent = ObjectPool.Instance.GetPooledObject(_ParentOPCount);
+                rivalParent.transform.position = rivalFreeParent.transform.position;
+                GameObject obj = ObjectPool.Instance.GetPooledObject(_rivalOPCount);
+                obj.transform.SetParent(rivalParent.transform);
                 if (i1 != 1)
                 {
                     //objeyi ObjectingPool dan çekip yerine yerleþtirip path te yürütülüyor
-                    GameObject obj = ObjectPool.Instance.GetPooledObject(_rivalOPCount);
-
                     obj.transform.position = new Vector3(PathGO[0].transform.position.x + (distanceHorizontal * (float)((i1 - 1) / 2)) - (i2 * distanceHorizontal), PathGO[0].transform.position.y, PathGO[0].transform.position.z - (distanceVertical * i1));
-                    obj.transform.SetParent(rivalParent.transform);
-
-                    StartCoroutine(FinishWalk(obj));
                 }
                 else
                 {
                     //objeyi ObjectingPool dan çekip yerine yerleþtirip path te yürütülüyor
-                    GameObject obj = ObjectPool.Instance.GetPooledObject(_rivalOPCount);
 
                     obj.transform.position = PathGO[0].transform.position;
-                    obj.transform.SetParent(rivalParent.transform);
 
                     if (_rivalPart < RivalD.Instance.factor.archerArrowSpeed + RivalD.Instance.factor.archerShot + RivalD.Instance.factor.characterSpeed)
                     {
@@ -77,13 +67,14 @@ public class RivalWalk : MonoSingleton<RivalWalk>
                         _rivalPart = GameStart.Instance.finishGame;
                         GameStart.Instance.inGameFinish = true;
                     }
-                    StartCoroutine(FinishWalk(obj));
+
                 }
+                ArcherManager.Instance.totalRival = ((_rivalPart) * (_rivalPart + 1)) / 2;
+                StartCoroutine(FinishWalk(obj));
+                rivalParent.transform.DOPath(PathV3, _rivalWalkTime).SetEase(Ease.InSine);
+                yield return new WaitForSeconds(_rivalSpawnCountDown);
             }
         }
-        ArcherManager.Instance.totalRival = ((_rivalPart) * (_rivalPart + 1)) / 2;
-        rivalParent.transform.DOPath(PathV3, _rivalWalkTime).SetEase(Ease.InSine);
-
     }
 
     IEnumerator FinishWalk(GameObject obj)

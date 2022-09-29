@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ArcherControl : MonoSingleton<ArcherControl>
 {
-    [SerializeField]private GameObject enemy;
+    //KULLANILMIYOR
+
+    [SerializeField] private GameObject enemy;
     [SerializeField] private float speed, distance;
     public bool fire;
     Vector3 archerPosition;

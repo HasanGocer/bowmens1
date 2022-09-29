@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ArcherRotate : MonoBehaviour
 {
+    //kulelerdeki okçularýn focuslanmýþ rivale dönmesini saðlayan komuttur (aþaðý dönmesi engellenir)
+
     public GameObject rival;
     private float rotx, rotz;
 

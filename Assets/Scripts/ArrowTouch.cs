@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ArrowTouch : MonoBehaviour
 {
+    //rivallerin deðdiði þeye göre bir fonksiyon çalýtýrýyor
+    
     [SerializeField] private int _OPRivalCount, _OPParticalCount, _OPArrowCount;
     [SerializeField] private int minRandomMoney, maxRandomMoney;
     [SerializeField] private float _particalTime;
@@ -11,6 +13,7 @@ public class ArrowTouch : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.CompareTag("Arrow") && !GameStart.Instance.inFail && !inArrow)
         {
             ArcherManager.Instance.DeadRival++;

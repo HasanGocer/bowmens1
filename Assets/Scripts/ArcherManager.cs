@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ArcherManager : MonoSingleton<ArcherManager>
 {
+    //Archerlarýn tüm fonksiyonlarýnýn ve fieldlarýnýn bulunduðu script
+
     [System.Serializable]
     public class TowerClass
     {
@@ -17,7 +19,7 @@ public class ArcherManager : MonoSingleton<ArcherManager>
     private List<int> ArcherType = new List<int>();
     private List<bool> ArcherBool = new List<bool>();
     public Stack<GameObject> Rival = new Stack<GameObject>();
-    [SerializeField] private int _OPArrowCount, _OPRivalCount, _OPParticalCount;
+    [SerializeField] private int _OPArrowCount;
     public GameObject focusRival;
     public int totalRival, DeadRival;
     private float _rotationCountdown = 0.1f;
@@ -33,6 +35,17 @@ public class ArcherManager : MonoSingleton<ArcherManager>
         StartCoroutine(ArrowShot());
     }
 
+    //satýn alýnýn kulelerin deðerleri giriliyor
+    private void Synchronization()
+    {
+        for (int i = 0; i < RivalD.Instance.field.Tower; i++)
+        {
+            ArcherType.Add(0);
+            ArcherBool.Add(true);
+        }
+    }
+
+    //alýnan kulelerin setactivi açýlýyor 
     private void TowerSelected()
     {
         //Tower bilgi atamasý
@@ -55,33 +68,7 @@ public class ArcherManager : MonoSingleton<ArcherManager>
         }
     }
 
-    IEnumerator ArrowShot()
-    {
-        while (true)
-        {
-            //rival var mý yok mu kontrol ediyor
-            if (Rival.Count > 0)
-            {
-                //Rival hareketi bittiðinde setactive kapandýðýndan öncesindeki rival a odaklanýyor
-                if (!GameStart.Instance.inFail)
-                {
-                    //kulelerin hepsinni ateþ etmesi saðlanýyor
-                    for (int i = 0; i < RivalD.Instance.field.Tower; i++)
-                    {
-                        //objecting pooldan arrow çekiyoruz. rotasyon ve position atamasý yapýlýr ve Arrow takip edilir
-                        GameObject objArrow = ObjectPlacement(_OPArrowCount, i);
-
-                        //StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV1( focusRival));
-                        StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV2(focusRival));
-                        yield return new WaitForSeconds(_rotationCountdown);
-                    }
-                    yield return new WaitForSeconds(1 / RivalD.Instance.field.archerShot);
-                }
-            }
-            yield return null;
-        }
-    }
-
+    // Rakibe focuslanmasý saðlanýlýyor ve bitmiþ mi diye kontrol ediliyor
     IEnumerator RivalSelect()
     {
         while (true)
@@ -125,6 +112,33 @@ public class ArcherManager : MonoSingleton<ArcherManager>
         }
     }
 
+    IEnumerator ArrowShot()
+    {
+        while (true)
+        {
+            //rival var mý yok mu kontrol ediyor
+            if (Rival.Count > 0)
+            {
+                //Rival hareketi bittiðinde setactive kapandýðýndan öncesindeki rival a odaklanýyor
+                if (!GameStart.Instance.inFail)
+                {
+                    //kulelerin hepsinni ateþ etmesi saðlanýyor
+                    for (int i = 0; i < RivalD.Instance.field.Tower; i++)
+                    {
+                        //objecting pooldan arrow çekiyoruz. rotasyon ve position atamasý yapýlýr ve Arrow takip edilir
+                        GameObject objArrow = ObjectPlacement(_OPArrowCount, i);
+
+                        //StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV1( focusRival));
+                        StartCoroutine(objArrow.GetComponent<ArrowFollow>().ArrowRivalIntegratedV2(focusRival));
+                        yield return new WaitForSeconds(_rotationCountdown);
+                    }
+                    yield return new WaitForSeconds(1 / RivalD.Instance.field.archerShot);
+                }
+            }
+            yield return null;
+        }
+    }
+
     private GameObject ObjectPlacement(int _OPArrowCount, int i)
     {
         GameObject objArrow = ObjectPool.Instance.GetPooledObjectAdd(_OPArrowCount);
@@ -134,6 +148,8 @@ public class ArcherManager : MonoSingleton<ArcherManager>
         return objArrow;
     }
 
+
+    //satýn alýnan towerlarýn setactivini açan komut
     public void TowerAdd()
     {
         ArcherType.Add(0);
@@ -148,12 +164,5 @@ public class ArcherManager : MonoSingleton<ArcherManager>
         Towers[(int)RivalD.Instance.field.Tower - 1].Archer[ArcherType[(int)RivalD.Instance.field.Tower - 1]].SetActive(true);
     }
 
-    private void Synchronization()
-    {
-        for (int i = 0; i < RivalD.Instance.field.Tower; i++)
-        {
-            ArcherType.Add(0);
-            ArcherBool.Add(true);
-        }
-    }
+
 }
